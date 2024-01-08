@@ -1,0 +1,37 @@
+1. Giao diện người dùng
+* Lỗi:
+- Giỏ hàng: lúc thanh toán vẫn hiện số lượng (đã fix)
+- Hình ảnh sản phẩm chưa cân đối (đã fix)
+- Chi tiết sản phẩm: 
++ Design lại số lượng, ảnh, kích cỡ, màu sắc (đã fix)
+- Giỏ hàng:
++ Sửa lại thông báo có những trường hợp thông báo sai (đã fix)
++ Xóa auto bị xóa đầu (đã fix)
++ Cập nhật số lượng thì update luôn giá tiền, tổng tiền, tạm tính (đã fix)
+- Thanh toán online
++ Tích hợp thêm thanh toán VNPAY (đã fix)
++ Gửi email cho thanh toán Momo (đã fix)
+* Lưu ý:
+- Momo: Hạn mức giao dịch dưới 50tr (tốt nhất khoảng 30tr thôi);
+- VNPAY: Hạn mức giao dịch dưới 200tr (tốt nhất khoảng 150tr thôi);
+- Tài khoản demo VNPAY:
++ STK: 9704198526191432198
++ Ngân hàng: NCB
++ Tên chủ tài khoản: NGUYEN VAN A
++ Ngày phát hành: 07/15
++ Mật khẩu OTP: 123456
+(Cần check lại thì vào url này: https://sandbox.vnpayment.vn/apis/vnpay-demo/)
+2. Giao diện quản trị
+* Lỗi: 
+- Đơn hàng + Đơn đặt hàng: 
++ Đã có thể in hóa đơn được (đã fix)
++ Design lại giao diện (đã fix)
++ Cập nhật số lượng hàng theo từng trạng thái (coi như là 1 loại doanh thu) (đã fix)
+- Doanh thu (ngoài trang chủ)
++ Đã sửa lại dữ liệu lấy cho phù hợp và chỉnh icon (đã fix)
+- Kho 
++ Thay đổi lại giao diện (đã fix)
+- Danh mục
+* Lưu ý
++ Về cơ chế của kho thì nhập xuất không hợp lý lắm nhưng do có lẽ đã đồ án đã theo logic đó thì k nên thay đổi và nếu thay sẽ mất thời gian
+=> Vậy nên khi trình bày thì hạn chế trình bày chức năng này
