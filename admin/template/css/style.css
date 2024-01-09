@@ -89,3 +89,38 @@
 .cursor-pointer {
     cursor: pointer;
 }
+
+/* Ẩn radio button mặc định */
+.checkbox-size,
+.checkbox-color {
+  display: none;
+}
+
+/* Thiết lập kiểu của hình tròn */
+.checkbox-size + label {
+  display: inline-block;
+  width: 35px; /* Kích thước của hình tròn */
+  height: 35px; /* Kích thước của hình tròn */
+  border-radius: 50%; /* Làm cho nó tròn */
+  border: 1px solid #ccc; /* Viền */
+  text-align: center;
+  padding-top: 6px;
+  line-height: 20px; /* Chính giữa nội dung trong hình tròn */
+}
+
+.checkbox-color + label{
+display: inline-block;
+  width: 120px; /* Kích thước của hình tròn */
+  height: 30px; /* Kích thước của hình tròn */
+  border: 1px solid #ccc; /* Viền */
+  text-align: center;
+  padding-top: 4px;
+  line-height: 20px; /* Chính giữa nội dung trong hình tròn */
+}
+
+/* Khi ô checkbox được chọn, thay đổi màu nền để làm nổi bật */
+.checkbox-size:checked + label,
+.checkbox-color:checked + label {
+  background-color: #ccc;
+  color: #fff; /* Đổi màu chữ */
+}

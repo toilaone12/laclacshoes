@@ -65,6 +65,10 @@
       // e.preventDefault();
       $('#form-invoice').print();
     })
+    $(document).on('click', '.modal-description', function(e){
+      let content = $(this).attr('title');
+      $('.content-description').text(content);
+    })
   });
 </script>
 

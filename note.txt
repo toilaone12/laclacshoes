@@ -32,6 +32,8 @@
 - Kho 
 + Thay đổi lại giao diện (đã fix)
 - Danh mục
++ Sửa lại giao diện thêm sửa Xóa
++ Sửa thông báo, chức năng xóa
 * Lưu ý
 + Về cơ chế của kho thì nhập xuất không hợp lý lắm nhưng do có lẽ đã đồ án đã theo logic đó thì k nên thay đổi và nếu thay sẽ mất thời gian
 => Vậy nên khi trình bày thì hạn chế trình bày chức năng này
