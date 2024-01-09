@@ -8,11 +8,11 @@ if (isset($_GET['trang'])) {
 	$trang = 1;
 }
 $from = ($trang - 1) * 10;
-$sql = "SELECT * FROM `sanpham`   LIMIT $from,10 ";
+$sql = "SELECT * FROM `sanpham` ORDER BY MaSP DESC LIMIT $from,10";
+// var_dump($sql);
 $rs = mysqli_query($conn, $sql);
 $so = mysqli_num_rows($rs);
 ?>
-
 <div class="container-fluid">
 	<div class=" alert alert-primary">
 		<h4 class="page-title">
@@ -23,58 +23,57 @@ $so = mysqli_num_rows($rs);
 	</div>
 	<div class="card card-body ">
 		<?php include_once('sanpham/main.php'); ?>
-		<div class="row">
-
-			<table class="table table-hover m-auto text-center" style="font-size: 13px;">
-				<thead class="badge-info">
-					<tr>
-						<th>Ảnh nền</th>
-						<th>Tên sản phẩm</th>
-						<th>Danh mục</th>
-						<th>Nhà cung cấp</th>
-						<th>Số lượng</th>
-						<th>Mô tả</th>
-						<th>Đơn giá</th>
-						<th>Chức năng</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php $so = 0;
-						while ($row = mysqli_fetch_array($rs)) { 
-							$sqlDanhMuc = 'SELECT * FROM danhmuc WHERE MaDM = '.$row['MaDM'];
-							$sqlNhaCC = 'SELECT * FROM nhacc WHERE MaNCC = '.$row['MaNCC'];
-							$rsDanhMuc = mysqli_query($conn,$sqlDanhMuc);
-							$rsNhaCCc = mysqli_query($conn,$sqlNhaCC);
-							$tenDM = mysqli_fetch_assoc($rsDanhMuc)['TenDM']; 
-							$tenNCC = mysqli_fetch_assoc($rsNhaCCc)['TenNCC']; 
-					?>
+		<div class="card card-body">
+			<div class="row">
+				<table class="table table-hover m-auto text-center" style="font-size: 13px;">
+					<thead class="badge-info">
 						<tr>
-							<td><img src="../webroot/image/sanpham/<?php echo $row['AnhNen']; ?>" width="60" height="50"></td>
-							<td width="200"><?php echo $row['TenSP']; ?></td>
-							<td><?php echo $tenDM; ?></td>
-							<td><?php echo $tenNCC; ?></td>
-							<td><?php echo $row['SoLuong']; ?></td>
-							<td><a class="modal-description text-danger" data-toggle="modal" data-target="#descriptionProduct" title="<?php echo $row['MoTa']; ?>"><?php echo 'Xem chi tiết' ?></a></td>
-							<td><?php echo number_format($row['DonGia']) . 'đ'; ?></td>
-							<td width="390">
-								<a class="mb-3 btn btn-outline-primary mx-auto w-25 fs-14 text-capitalize" href="index.php?action=sanpham&view=suasp&masp=<?php echo $row['MaSP']; ?>"><i class="far fa-edit"></i></a>
-								<a class="mb-3 btn btn-outline-danger mx-auto w-25 fs-14 text-capitalize" href="sanpham/main.php?view=xoasp&masp=<?php echo $row['MaSP']; ?>"><i class="fas fa-backspace"></i></a>
-							</td>
+							<th>Ảnh nền</th>
+							<th>Tên sản phẩm</th>
+							<th>Danh mục</th>
+							<th>Nhà cung cấp</th>
+							<th>Số lượng kho</th>
+							<th>Mô tả</th>
+							<th>Đơn giá</th>
+							<th>Chức năng</th>
 						</tr>
-					<?php	} ?>
-
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						<?php $so = 0;
+							while ($row = mysqli_fetch_array($rs)) { 
+								$sqlDanhMuc = 'SELECT * FROM danhmuc WHERE MaDM = '.$row['MaDM'];
+								$sqlNhaCC = 'SELECT * FROM nhacc WHERE MaNCC = '.$row['MaNCC'];
+								$rsDanhMuc = mysqli_query($conn,$sqlDanhMuc);
+								$rsNhaCCc = mysqli_query($conn,$sqlNhaCC);
+								$tenDM = mysqli_fetch_assoc($rsDanhMuc)['TenDM']; 
+								$tenNCC = mysqli_fetch_assoc($rsNhaCCc)['TenNCC']; 
+						?>
+							<tr>
+								<td><img src="../webroot/image/sanpham/<?php echo $row['AnhNen']; ?>" width="60" height="50"></td>
+								<td width="200"><?php echo $row['TenSP']; ?></td>
+								<td><?php echo $tenDM; ?></td>
+								<td><?php echo $tenNCC; ?></td>
+								<td><?php echo $row['SoLuongKho']; ?></td>
+								<td><a class="modal-description text-danger" data-toggle="modal" data-target="#descriptionProduct" title="<?php echo $row['MoTa']; ?>"><?php echo 'Xem chi tiết' ?></a></td>
+								<td><?php echo number_format($row['DonGia']) . 'đ'; ?></td>
+								<td width="390">
+									<a class="mb-3 btn btn-outline-primary mx-auto w-25 fs-14 text-capitalize" href="index.php?action=sanpham&view=suasp&masp=<?php echo $row['MaSP']; ?>"><i class="far fa-edit"></i></a>
+									<a class="mb-3 btn btn-outline-danger mx-auto w-25 fs-14 text-capitalize" href="sanpham/main.php?view=xoasp&masp=<?php echo $row['MaSP']; ?>"><i class="fas fa-backspace"></i></a>
+								</td>
+							</tr>
+						<?php	} ?>
+	
+					</tbody>
+				</table>
+			</div>
 		</div>
-
-
 	</div><br>
 	<div class="row ">
 		<?php
 		$ds_spn1b = "SELECT MaSP FROM `sanpham`";
 		$query_dssp2 = mysqli_query($conn, $ds_spn1b);
 		$sosp = mysqli_num_rows($query_dssp2);
-		$sotrang = ceil($sosp / 20); ?>
+		$sotrang = ceil($sosp / 10); ?>
 		<hr>
 		<ul class="pagination justify-content-center">
 			<?php for ($x = 1; $x <= $sotrang; $x++) { ?>
@@ -109,3 +108,14 @@ $so = mysqli_num_rows($rs);
 	</div>
 </div>
 </div>
+<?php
+	if(isset($_GET['thongbao'])){
+		$thongbao = $_GET['thongbao'];
+		echo "<script>
+		alert('".$thongbao."')
+		location.href = '?action=sanpham&view=themsp';
+		</script>";
+		// header('Location: ?action=danhmuc&view=themdm');
+	}
+
+?>

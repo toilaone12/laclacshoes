@@ -69,6 +69,24 @@
       let content = $(this).attr('title');
       $('.content-description').text(content);
     })
+    $(document).on('change', '.multi-image', function(e){
+      var fileCount = this.files.length;
+      if (fileCount > 4) {
+        alert('Bạn chỉ được chọn tối đa 4 tệp tin ảnh');
+        $(this).val(''); // Xóa các tệp đã chọn nếu vượt quá số lượng cho phép
+      }else{
+        var fileNames = '';
+        for (var i = 0; i < this.files.length; i++) {
+          fileNames += this.files[i].name + ', ';
+        }
+        // Loại bỏ dấu phẩy cuối cùng
+        fileNames = fileNames.slice(0, -2); // Cắt bỏ 2 ký tự cuối cùng (dấu phẩy và khoảng trắng)
+        $('.file-multi-image').html('[' + fileNames + ']');
+      }
+    })
+    $(document).on('change', '.one-image', function(e){
+      $('.file-image').html('[' + this.files[0].name + ']');
+    })
   });
 </script>
 

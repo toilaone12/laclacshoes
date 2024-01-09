@@ -32,18 +32,18 @@
 		include_once('kho/quanlysanpham.php');
 	}
 	
-	if(isset($_GET['tb'])){
-		$tb=$_GET['tb'];
-		switch ($tb) {
-			case 'ok':
-				echo '<script>alert("success !!!")</script>';
-				break;
-			case 'loi':
-				echo '<script>alert("Lỗi !!!")</script>';
-				break;
-			default:
-				# code...
-				break;
-		}
-	}
+	// if(isset($_GET['tb'])){
+	// 	$tb=$_GET['tb'];
+	// 	switch ($tb) {
+	// 		case 'ok':
+	// 			echo '<script>alert("success !!!")</script>';
+	// 			break;
+	// 		case 'loi':
+	// 			echo '<script>alert("Lỗi !!!")</script>';
+	// 			break;
+	// 		default:
+	// 			# code...
+	// 			break;
+	// 	}
+	// }
 ?>

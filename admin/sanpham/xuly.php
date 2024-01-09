@@ -4,65 +4,82 @@ include_once('../../model/database.php');
 	// Thêm Sản Phẩm
 		if(isset($_POST['xlthem'])){
 			$tensp=$_POST['tensp'];
-			$madm=$_POST['madm'];
-			$mancc=$_POST['mancc'];
-			$dongia=$_POST['dongia'];
-			$anhnen=$_FILES['anhnen']['name'];
-			$AnhSP_tmp=$_FILES['anhnen']['tmp_name'];
-			move_uploaded_file($AnhSP_tmp,'../../webroot/image/sanpham/'.$anhnen);
-			$size=$_POST['size'];
-			$mau=$_POST['mau'];
-			if(isset($_POST['mota'])){$mota=$_POST['mota'];}else{$mota=NULL;}
-     		$sql_them=" INSERT INTO `sanpham`(`MaSP`, `TenSP`, `MaDM`, `MaNCC`, `MoTa`, `DonGia`, `AnhNen`) VALUES (NULL,'$tensp',$madm,$mancc,'$mota',$dongia,'$anhnen')";
-			$rs_them=mysqli_query($conn,$sql_them);
-				if(isset($rs_them)){
-					$sql_masp="select MaSP from sanpham where TenSP='$tensp' ORDER BY MaSP DESC";
-					$sr=mysqli_query($conn,$sql_masp);$qk=mysqli_fetch_array($sr);	
-					if(isset($qk)){
-						(int) $so =$qk['MaSP'];
-						 foreach ($size as $key1 => $values1){
-						 	foreach ($mau as $key => $values) {
-								$sql_ctsp="insert into chitietsanpham(MaSP,MaSize,MaMau) values('$so','$values1','$values')";
-								$rs_ctsp=mysqli_query($conn, $sql_ctsp);
-						 	}
-						}$dem=1;
-						$sql_addanhsp="INSERT INTO `anhsp`(`MaSP`) VALUES ('$so') ";
-						mysqli_query($conn,$sql_addanhsp);
-						foreach($_FILES['anhsp']['name'] as $key=>$value) {
-							$anhsp=$_FILES['anhsp']['name'][$key];
-							$anh_tmp=$_FILES['anhsp']['tmp_name'][$key];
-							$rs_anhsp = move_uploaded_file($anh_tmp,'../../webroot/image/sanpham/'.$anhsp);
-							$sql_upanhsp="UPDATE `anhsp` SET `Anh$dem` = '$anhsp' where `MaSP` = '$so' ";
-							mysqli_query($conn,$sql_upanhsp);
-							$dem++; 
-						}
-						 header('location:../index.php?action=sanpham&view=themsp&thongbao=them');
-					}else{
-					header('location:../index.php?action=sanpham&view=themsp&thongbao=loi');
-				}	
+			$sql_check = "SELECT TenSP from sanpham WHERE TenSP = '".$tensp."'";
+			$rs_check = mysqli_query($conn,$sql_check);
+			$count = mysqli_num_rows($rs_check);
+			// var_dump($count); die;
+			if($count == 0){
+				$madm=$_POST['madm'];
+				$mancc=$_POST['mancc'];
+				$sl=$_POST['soluong'];
+				$dongia=$_POST['dongia'];
+				$anhnen=$_FILES['anhnen']['name'];
+				$AnhSP_tmp=$_FILES['anhnen']['tmp_name'];
+				// move_uploaded_file($AnhSP_tmp,'../../webroot/image/sanpham/'.$anhnen);
+				$size=$_POST['size'];
+				$mau=$_POST['mau'];
+				if(isset($_POST['mota'])){$mota=$_POST['mota'];}else{$mota=NULL;}
+				$sql_them=" INSERT INTO `sanpham`(`MaSP`, `TenSP`, `MaDM`, `MaNCC`, `SoLuongKho`, `MoTa`, `DonGia`, `AnhNen`) VALUES (NULL,'$tensp',$madm,$mancc,$sl,'$mota',$dongia,'$anhnen')";
+				$rs_them=mysqli_query($conn,$sql_them);
+				// var_dump($rs_them); die;
+					if($rs_them){
+						$sql_masp="select MaSP from sanpham where TenSP='$tensp' ORDER BY MaSP DESC";
+						$sr=mysqli_query($conn,$sql_masp);$qk=mysqli_fetch_array($sr);	
+						if(isset($qk)){
+							(int) $so =$qk['MaSP'];
+							// var_dump($so); die;
+							 foreach ($size as $key1 => $values1){
+								 foreach ($mau as $key => $values) {
+									$sql_ctsp="insert into chitietsanpham(MaSP,MaSize,MaMau) values('$so','$values1','$values')";
+									$rs_ctsp=mysqli_query($conn, $sql_ctsp);
+								 }
+							}$dem=1;
+							$sql_addanhsp="INSERT INTO `anhsp`(`MaSP`) VALUES ('$so') ";
+							mysqli_query($conn,$sql_addanhsp);
+							foreach($_FILES['anhsp']['name'] as $key=>$value) {
+								$anhsp=$_FILES['anhsp']['name'][$key];
+								$anh_tmp=$_FILES['anhsp']['tmp_name'][$key];
+								$rs_anhsp = move_uploaded_file($anh_tmp,'../../webroot/image/sanpham/'.$anhsp);
+								$sql_upanhsp="UPDATE `anhsp` SET `Anh$dem` = '$anhsp' where `MaSP` = '$so' ";
+								mysqli_query($conn,$sql_upanhsp);
+								$dem++; 
+							}
+							 header('location:../index.php?action=sanpham&view=themsp&thongbao=Thêm thành công');
+						}else{
+						header('location:../index.php?action=sanpham&view=themsp&thongbao=Lỗi truy vấn');
+					}	
+				}else{
+					header('location:../index.php?action=sanpham&view=themsp&thongbao=Lỗi truy vấn');
+				}
+			} else{
+				header('location:../index.php?action=sanpham&view=themsp&thongbao=Tên sản phẩm đã tồn tại');
 			}
 
 		}
 	//-----------------------------------------------------------------------------------------	
 			// cập nhập Sản Phẩm
 if(isset($_POST['xlsua'])){
-	$masp=$_POST['masp'];
-	$tensp=$_POST['tensp'];
-	$madm=$_POST['madm'];
-	$mancc=$_POST['mancc'];
-	$dongia=$_POST['dongia'];
+	// var_dump($_POST); die;
+	$masp=mysqli_real_escape_string($conn,$_POST['masp']);
+	$tensp=mysqli_real_escape_string($conn,$_POST['tensp']);
+	$madm=mysqli_real_escape_string($conn,$_POST['madm']);
+	$mancc=mysqli_real_escape_string($conn,$_POST['mancc']);
+	$dongia=mysqli_real_escape_string($conn,$_POST['dongia']);
+	$soluongkho=mysqli_real_escape_string($conn,$_POST['soluong']);
 	if(isset($_FILES['anhnen'])){
 		$anhnen=$_FILES['anhnen']['name'];
 		$AnhSP_tmp=$_FILES['anhnen']['tmp_name'];
-		move_uploaded_file($AnhSP_tmp,'../../webroot/image/sanpham/'.$anhnen);}else{$anhnen=false;}
+		move_uploaded_file($AnhSP_tmp,'../../webroot/image/sanpham/'.$anhnen);}else{$anhnen=false;
+	}
 	$size=$_POST['size'];
 	$mau=$_POST['mau'];
-	if(isset($_POST['mota'])){$mota=$_POST['mota'];}else{$mota=NULL;}
+	if(isset($_POST['mota'])){$mota=mysqli_real_escape_string($conn,$_POST['mota']);}else{$mota=NULL;}
 	if($anhnen){
-		$sql_them=" UPDATE `sanpham` SET `TenSP`='$tensp',`MaDM`='$madm',`MaNCC`='$mancc',`MoTa`='$mota',`DonGia`='$dongia',`AnhNen`='$anhnen' WHERE `MaSP`='$masp'";
+		$sql_them="UPDATE `sanpham` SET `TenSP`='$tensp',`MaDM`='$madm',`MaNCC`='$mancc',`SoLuongKho`='$soluongkho',`MoTa`='$mota',`DonGia`='$dongia',`AnhNen`='$anhnen' WHERE `MaSP`='$masp'";
 	}else{
-		$sql_them=" UPDATE `sanpham` SET `TenSP`='$tensp',`MaDM`='$madm',`MaNCC`='$mancc',`MoTa`='$mota',`DonGia`='$dongia' WHERE `MaSP`='$masp'";
+		$sql_them="UPDATE `sanpham` SET `TenSP`='$tensp',`MaDM`='$madm',`MaNCC`='$mancc',`SoLuongKho`='$soluongkho',`MoTa`='$mota',`DonGia`='$dongia' WHERE `MaSP`='$masp'";
 	}
+	// var_dump($sql_them); die;
 	$rs_them=mysqli_query($conn,$sql_them);
 	if(isset($rs_them)){
 		$sql_xoa="DELETE FROM `chitietsanpham` WHERE MaSP='$masp'";	$sr2=mysqli_query($conn,$sql_xoa);
@@ -80,7 +97,7 @@ if(isset($_POST['xlsua'])){
 						$dem=1;
 						if (isset($_FILES['anhsp'])) {
 							if(empty($_FILES['anhsp']['name'][0])){echo 'ok1'; 
-								header('location:../index.php?action=sanpham&view=themsp&thongbao=sua'); 
+								header('location:../index.php?action=sanpham&view=themsp&thongbao=Sửa thành công'); 
 							}else{ 
 								foreach($_FILES['anhsp']['name'] as $key=>$value) {
 									$sql_anhcu="SELECT * FROM `anhsp` WHERE MaSP = $so";
@@ -98,10 +115,10 @@ if(isset($_POST['xlsua'])){
 						 			
 									
 								}
-								header('location:../index.php?action=sanpham&view=themsp&thongbao=sua');
+								header('location:../index.php?action=sanpham&view=themsp&thongbao=Sửa thành công');
 							}
 				}else{
-					header('location:../index.php?action=sanpham&view=themsp&thongbao=loi');
+					header('location:../index.php?action=sanpham&view=themsp&thongbao=Lỗi truy vấn');
 				}
 			
 			}
@@ -118,21 +135,26 @@ if(isset($_POST['xlsua'])){
 if(isset($_GET['xoa'])){
 	$masp=$_GET['masp'];
 	$delete="DELETE FROM `chitietsanpham` WHERE MaSP = $masp";
+	$delete2="DELETE FROM `phieunhap` WHERE MaSP = $masp";
+	$delete5="DELETE FROM `sanphamkhuyenmai` WHERE MaSP = $masp";
 	$rs_d=mysqli_query($conn,$delete);
-	if(isset($rs_d)){
-		$delete2="DELETE FROM `sanpham` WHERE MaSP = $masp";
-		$rs_d2=mysqli_query($conn,$delete2);
+	$rs_d2=mysqli_query($conn,$delete2);
+	$rs_d5=mysqli_query($conn,$delete5);
+
+	if(isset($rs_d) && isset($rs_d2) && isset($rs_d5)){
+		$delete3="DELETE FROM `sanpham` WHERE MaSP = $masp";
+		// var_dump($delete5); die;
+		$rs_d2=mysqli_query($conn,$delete3);
 		if(isset($rs_d2)){
-			$delete3="DELETE FROM `anhsp` WHERE MaSP = $masp";
-			$rs_d3=mysqli_query($conn,$delete3);
+			$delete4="DELETE FROM `anhsp` WHERE MaSP = $masp";
+			$rs_d3=mysqli_query($conn,$delete4);
 			if(isset($rs_d3)){
-				header('location:../index.php?action=sanpham&thongbao=xoa');
+				header('location:../index.php?action=sanpham&thongbao=Xóa Thành Công');
 			}else{
 				header('location:../index.php?action=sanpham&view=themsp&thongbao=loi');
 			}
 			
 		}
-		
 	}
 }    	
 
