@@ -79,7 +79,7 @@
             $prodcts=productAll();
             while ($row=(mysqli_fetch_array($prodcts))) { $price_sale=price_sale($row['MaSP'],$row['DonGia']);?>
             <div class="col-lg-3 mb-4 ">
-                <div class="product-entry border">
+                <div class="product-entry border" style="height: 350px;">
                     <a href="?view=product-detail&id=<?php echo $row['MaSP'] ?>" class="prod-img">
                         <img src="webroot/image/sanpham/<?php echo $row['AnhNen']; ?>" class="img-fluid image-product" alt="Free html5 bootstrap 4 template">
                     </a>
