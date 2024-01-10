@@ -15,9 +15,7 @@
 				break;
 		}
 	}
-	else{
-
-		
+	else{		
 		include_once('khuyenmai/them.php');
 		include_once('khuyenmai/khuyenmai.php');
 	}
