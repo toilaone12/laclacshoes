@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 07, 2024 lúc 05:26 PM
--- Phiên bản máy phục vụ: 10.4.22-MariaDB
--- Phiên bản PHP: 7.3.33
+-- Thời gian đã tạo: Th1 10, 2024 lúc 03:37 PM
+-- Phiên bản máy phục vụ: 10.4.24-MariaDB
+-- Phiên bản PHP: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,7 +40,7 @@ CREATE TABLE `anhsp` (
 --
 
 INSERT INTO `anhsp` (`MaSP`, `Anh1`, `Anh2`, `Anh3`, `Anh4`) VALUES
-(4, 'NIKE FREE METCON 2 UT 2.png', 'NIKE FREE METCON 2 UT 3.jpg', 'NIKE FREE METCON 2 UT 4.jpg', NULL);
+(4, 'NIKE FREE METCON 2 UT 2.png', 'NIKE FREE METCON 2 UT 3.jpg', 'NIKE FREE METCON 2 UT 4.jpg', '');
 
 -- --------------------------------------------------------
 
@@ -141,15 +141,15 @@ CREATE TABLE `chitietsanpham` (
 
 INSERT INTO `chitietsanpham` (`MaSP`, `MaSize`, `MaMau`, `SoLuong`) VALUES
 (4, 36, 'Đỏ', 91),
-(4, 36, 'Hồng', 94),
+(4, 36, 'Hồng', 185),
 (4, 36, 'none', 100),
-(4, 37, 'Đỏ', 100),
-(4, 37, 'Hồng', 99),
+(4, 37, 'Đỏ', 101),
+(4, 37, 'Hồng', 190),
 (4, 37, 'none', 100),
-(4, 38, 'Đỏ', 100),
-(4, 38, 'Hồng', 100),
+(4, 38, 'Đỏ', 110),
+(4, 38, 'Hồng', 191),
 (4, 38, 'none', 100),
-(4, 39, 'Đỏ', 100),
+(4, 39, 'Đỏ', 110),
 (4, 39, 'Hồng', 100),
 (4, 39, 'none', 100),
 (4, 40, 'Đỏ', 100),
@@ -309,8 +309,9 @@ CREATE TABLE `danhmuc` (
 
 INSERT INTO `danhmuc` (`MaDM`, `TenDM`) VALUES
 (1, 'Sản Phẩm Nổi Bật'),
-(2, 'Sản Phẩm Mới'),
-(3, 'Sản Phẩm bán chạy');
+(2, 'Sản phẩm tháng 1'),
+(3, 'Sản Phẩm bán chạy'),
+(10, 'Sản phẩm tuyệt vời');
 
 -- --------------------------------------------------------
 
@@ -338,15 +339,15 @@ INSERT INTO `hoadon` (`MaHD`, `MaKH`, `MaNV`, `NgayDat`, `NgayGiao`, `TinhTrang`
 (86, 1, 3, '2023-06-19 16:52:51', NULL, 'Hủy Bỏ', '12658000', NULL),
 (87, 1, NULL, '2023-06-19 17:20:30', NULL, 'chưa duyệt', '1460000', NULL),
 (88, 1, 3, '2023-06-20 09:18:27', '2023-06-21 10:23:59', 'hoàn thành', '9577000', '3'),
-(89, 1, 3, '2023-06-21 08:31:12', '2023-06-22 08:32:24', 'Đã duyệt', '3679000', NULL),
-(90, 1, NULL, '2024-01-07 18:02:04', NULL, 'chưa duyệt', '22674000', NULL),
-(91, 1, NULL, '2024-01-07 18:08:39', NULL, 'chưa duyệt', '3779000', NULL),
-(92, 1, NULL, '2024-01-07 18:10:31', NULL, 'chưa duyệt', '3779000', NULL),
-(93, 1, NULL, '2024-01-07 21:23:53', NULL, 'chưa duyệt', '3779000', NULL),
-(94, 1, NULL, '2024-01-07 21:50:45', NULL, 'chưa duyệt', '7558000', NULL),
-(95, 1, NULL, '2024-01-07 21:51:45', NULL, 'chưa duyệt', '3469000', NULL),
-(96, 1, NULL, '2024-01-07 21:53:17', NULL, 'chưa duyệt', '7558000', NULL),
-(97, 1, NULL, '2024-01-07 21:54:28', NULL, 'chưa duyệt', '18473000', NULL);
+(89, 1, 3, '2023-06-21 08:31:12', '2023-06-22 08:32:24', 'hoàn thành', '3679000', '3'),
+(90, 1, 3, '2024-01-07 18:02:04', '2024-01-09 21:42:00', 'hoàn thành', '22674000', '3'),
+(91, 1, 3, '2024-01-07 18:08:39', '2024-01-09 21:21:40', 'hoàn thành', '3779000', '3'),
+(92, 1, 3, '2024-01-07 18:10:31', '2024-01-09 21:20:10', 'hoàn thành', '3779000', '3'),
+(93, 1, 3, '2024-01-07 21:23:53', '2024-01-09 16:29:23', 'hoàn thành', '3779000', '3'),
+(94, 1, 3, '2024-01-07 21:50:45', '2024-01-09 16:29:24', 'hoàn thành', '7558000', '3'),
+(95, 1, 3, '2024-01-07 21:51:45', '2024-01-09 16:29:22', 'hoàn thành', '3469000', '3'),
+(96, 1, 3, '2024-01-07 21:53:17', '2024-01-09 16:29:21', 'hoàn thành', '7558000', '3'),
+(97, 1, 3, '2024-01-07 21:54:28', '2024-01-09 16:29:13', 'hoàn thành', '18473000', '3');
 
 -- --------------------------------------------------------
 
@@ -486,7 +487,7 @@ CREATE TABLE `nhanvien` (
   `MaNV` int(11) NOT NULL,
   `TenNV` varchar(50) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `Email` varchar(50) COLLATE utf8mb4_vietnamese_ci NOT NULL,
-  `SDT` int(12) NOT NULL,
+  `SDT` varchar(12) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `DiaChi` text COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `MatKhau` varchar(50) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `Quyen` int(20) NOT NULL
@@ -497,10 +498,10 @@ CREATE TABLE `nhanvien` (
 --
 
 INSERT INTO `nhanvien` (`MaNV`, `TenNV`, `Email`, `SDT`, `DiaChi`, `MatKhau`, `Quyen`) VALUES
-(3, 'Admin', 'admin@gmail.com', 905027527, 'Số 451 Hoàng Diệu - Thành phố Đà Nẵng', 'admin', 1),
-(4, 'Nguyễn Nam Cường', 'cuong@gmail.com', 132465798, 'Số 451 Hoàng Diệu - Thành phố Đà Nẵng', '123456', 3),
-(2, 'Nhân Viên Bán Hàng ', 'NVBH@gmail.com', 123456789, 'Đà Nẵng', '123456', 4),
-(1, 'Quản Lý', 'thongkul@gmail.com', 778923743, '12 núi thàng - đà nẵng', '123456', 2);
+(3, 'Admin', 'admin@gmail.com', '905027527', 'Số 451 Hoàng Diệu - Thành phố Đà Nẵng', 'admin', 1),
+(4, 'Nguyễn Nam Cường', 'cuong@gmail.com', '132465798', 'Số 451 Hoàng Diệu - Thành phố Đà Nẵng', '123456', 3),
+(2, 'Nhân Viên Bán Hàng ', 'NVBH@gmail.com', '123456789', 'Đà Nẵng', '123456', 4),
+(1, 'Quản Lý', 'thongkul@gmail.com', '778923743', '12 núi thàng - đà nẵng', '123456', 2);
 
 -- --------------------------------------------------------
 
@@ -690,7 +691,43 @@ INSERT INTO `phieunhap` (`MaPN`, `MaNV`, `MaSP`, `SoLuong`, `DonGia`, `TongTien`
 (171, 3, 4, 100, '3', '300', '2023-06-21 08:22:42', '', 40, 'none'),
 (172, 3, 4, 100, '3', '300', '2023-06-21 08:22:42', '', 41, 'none'),
 (173, 3, 4, 100, '3', '300', '2023-06-21 08:22:42', '', 42, 'none'),
-(174, 3, 4, 100, '3', '300', '2023-06-21 08:22:42', '', 43, 'none');
+(174, 3, 4, 100, '3', '300', '2023-06-21 08:22:42', '', 43, 'none'),
+(175, 3, 4, 1, '30000', '30000', '2024-01-08 22:13:29', '', 36, 'Đỏ'),
+(176, 3, 4, 1, '30000', '30000', '2024-01-08 22:13:29', '', 37, 'Đỏ'),
+(177, 3, 4, 10, '30000', '300000', '2024-01-08 22:41:52', '', 36, 'Đỏ'),
+(178, 3, 4, 10, '30000', '300000', '2024-01-08 22:41:52', '', 37, 'Đỏ'),
+(179, 3, 4, 10, '30000', '300000', '2024-01-08 22:41:52', '', 38, 'Đỏ'),
+(180, 3, 4, 10, '30000', '300000', '2024-01-08 22:41:52', '', 39, 'Đỏ'),
+(181, 3, 4, 1, '30000', '30000', '2024-01-09 18:57:44', '', 36, 'Đỏ'),
+(182, 3, 5, 0, '30000', '0', '2024-01-09 18:58:34', '', 39, 'Xanh'),
+(183, 3, 6, 0, '30000', '0', '2024-01-09 18:58:53', '', 0, 'Đen'),
+(184, 3, 6, 0, '30000', '0', '2024-01-09 18:58:58', '', 38, 'Đen'),
+(185, 3, 7, 0, '0', '0', '2024-01-09 18:59:05', '', 39, 'Đen - Trắng'),
+(186, 3, 9, 0, '0', '0', '2024-01-09 18:59:18', '', 38, 'Đen - Trắng'),
+(187, 3, 10, 0, '0', '0', '2024-01-09 18:59:37', '', 39, 'Trắng'),
+(188, 3, 11, 0, '0', '0', '2024-01-09 18:59:44', '0', 0, 'none'),
+(189, 3, 11, 0, '0', '0', '2024-01-09 18:59:47', '0', 39, 'none'),
+(190, 3, 12, 0, '0', '0', '2024-01-09 18:59:56', '0', 39, 'Vàng'),
+(191, 3, 53, 0, '0', '0', '2024-01-09 19:00:04', '0', 42, 'none'),
+(192, 3, 54, 0, '0', '0', '2024-01-09 19:00:13', '0', 36, 'Đen'),
+(193, 3, 55, 0, '0', '0', '2024-01-09 19:00:21', '0', 0, 'Đen'),
+(194, 3, 55, 0, '0', '0', '2024-01-09 19:00:35', '0', 39, 'Đen'),
+(195, 3, 56, 0, '0', '0', '2024-01-09 19:00:43', '0', 38, 'Đen - Trắng'),
+(196, 3, 68, 0, '0', '0', '2024-01-09 19:00:50', '0', 0, 'Đen'),
+(197, 3, 68, 0, '0', '0', '2024-01-09 19:00:53', '0', 39, 'Đen'),
+(198, 3, 69, 0, '0', '0', '2024-01-09 19:01:02', '0', 39, 'none'),
+(199, 3, 70, 0, '0', '0', '2024-01-09 19:01:15', '0', 39, 'Đen - Trắng'),
+(200, 3, 71, 0, '0', '0', '2024-01-09 19:01:25', '0', 40, 'Đen'),
+(201, 3, 72, 0, '0', '0', '2024-01-09 19:01:34', '0', 39, 'Đen - Trắng'),
+(202, 3, 73, 0, '0', '0', '2024-01-09 19:01:42', '0', 36, 'Đen'),
+(203, 3, 77, 0, '0', '0', '2024-01-09 19:01:54', '0', 39, 'Đen - Trắng'),
+(204, 3, 76, 0, '0', '0', '2024-01-09 19:02:03', '0', 38, 'Đen'),
+(205, 3, 74, 0, '0', '0', '2024-01-09 19:02:11', '0', 38, 'Đen - Trắng'),
+(206, 3, 75, 0, '0', '0', '2024-01-09 19:02:18', '0', 0, 'Đen'),
+(208, 3, 75, 0, '0', '0', '2024-01-09 19:02:35', '0', 38, 'Đen'),
+(217, 3, 4, 101, '30000', '3030000', '2024-01-09 21:46:29', '', 36, 'Hồng'),
+(218, 3, 4, 101, '30000', '3030000', '2024-01-09 21:46:29', '', 37, 'Hồng'),
+(219, 3, 4, 101, '30000', '3030000', '2024-01-09 21:46:29', '', 38, 'Hồng');
 
 -- --------------------------------------------------------
 
@@ -716,7 +753,10 @@ CREATE TABLE `phieuxuat` (
 --
 
 INSERT INTO `phieuxuat` (`MaPX`, `MaNV`, `MaSP`, `Mau`, `Size`, `SoLuong`, `DonGia`, `TongTien`, `Note`, `NgayXuat`) VALUES
-(5, 3, 4, 'none', 36, 40, '1000000', '40000000', 'test', '2020-01-10 21:18:22');
+(5, 3, 4, 'none', 36, 40, '1000000', '40000000', 'test', '2020-01-10 21:18:22'),
+(6, 3, 4, 'Đỏ', 36, 10, '30000', '300000', '', '2024-01-08 22:46:50'),
+(7, 3, 4, 'Đỏ', 37, 10, '30000', '300000', '', '2024-01-08 22:46:50'),
+(8, 3, 4, 'Đỏ', 36, 1, '30000', '30000', '', '2024-01-09 18:58:15');
 
 -- --------------------------------------------------------
 
@@ -752,6 +792,7 @@ CREATE TABLE `sanpham` (
   `TenSP` varchar(50) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `MaDM` int(11) DEFAULT NULL,
   `MaNCC` int(11) NOT NULL,
+  `SoLuongKho` int(11) DEFAULT NULL,
   `SoLuong` int(11) DEFAULT 0,
   `MoTa` text COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
   `DonGia` decimal(10,0) NOT NULL,
@@ -762,29 +803,29 @@ CREATE TABLE `sanpham` (
 -- Đang đổ dữ liệu cho bảng `sanpham`
 --
 
-INSERT INTO `sanpham` (`MaSP`, `TenSP`, `MaDM`, `MaNCC`, `SoLuong`, `MoTa`, `DonGia`, `AnhNen`) VALUES
-(4, 'Nike Free Metcon 2 UT', 3, 1, 2384, 'Nike Free Metcon 2 UT mang đến một lớp hỗ trợ khác cho một loạt các bài tập huấn luyện. Dây đai bền giúp giữ bàn chân của bạn, trong khi bọt linh hoạt giúp bạn di chuyển tự nhiên từ trọng lượng đến máy khoan nhanh nhẹn.', '3829000', 'NikeFreeMetcon2UT.png'),
-(5, 'Zoom Freak 1', 3, 1, 395, 'Nhận được sự kỳ dị của bạn trong chiếc giày đặc trưng đầu tay của Giannis Antetokounmpo, lần đầu tiên Nike mang lại cảm giác bóng rổ quốc tế. Zoom Freak 1 có bộ đệm siêu nhạy, khóa trước và lực kéo đa hướng cần thiết để bổ sung cho trò chơi thể thao kỳ dị của anh ta.', '3519000', 'ZoomFreak1.png'),
-(6, 'Nike Air VaporMax Flyknit 3', 3, 1, 196, 'Nổi bật và bồng bềnh trong Nike Air VaporMax Flyknit 3. Các tính năng phía trên chảy 2 dòng của cấu trúc Flyknit thoáng khí, có thể kéo dài cho phong cách độc đáo, sẵn sàng trên đường phố. Công nghệ VaporMax Air mang tính cách mạng giúp duy trì mùa xuân trong bước chân của bạn với đệm từ gót chân đến gót chân.', '3500000', 'NikeAirVaporMaxFlyknit3.png'),
-(7, 'Nike Drop-Type Premium', 1, 1, 189, 'Nike Drop-Type Premium được lấy cảm hứng từ những đôi giày tennis cổ điển trong gia đình NikeCourt. Một phần của gia đình N354 gật đầu với dặm bay nhanh nhất của Steve Prefontaine, nó cung cấp các dòng thiết kế riêng biệt mượn từ All Court 2.', '2499000', 'NikeDropTypePremium.png'),
-(9, 'Nike Zoom Rival Fly', 1, 1, 199, 'Lấy cảm hứng từ các vận động viên tiếp sức Ekiden của Nhật Bản, Nike Zoom Rival Fly mang dáng vẻ tương lai với bộ phận Zoom Air ở bàn chân trước mang đến cho bạn lực đẩy nhạy. Rãnh uốn cong bên dưới tối ưu hóa ngón chân cái và đệm bọt mềm mại sải chân của bạn. Lưới và tổng hợp trên pha trộn sức mạnh và hơi thở.', '2649000', 'NikeZoomRivalFly.png'),
-(10, 'Nike Air Max 720 Waves', 1, 1, 382, 'Mang lại một quan điểm mới cho văn hóa ngoài tòa án trong Nike Air Max 720 Waves của bạn. Lập trường cấu hình thấp của nó cho thấy đơn vị Air cao nhất của Nike cho đến nay trong khi thiết kế D / MS / X của nó pha trộn văn hóa với thể thao, cho phép bạn bước vào một chiều hướng mới của phong cách hoops với sự thoải mái vô song.', '5589000', 'NikeAirMax720Waves.PNG'),
-(11, 'Nike Zoom Fly Flyknit ', 1, 1, 380, 'Giày chạy bộ Nike Zoom Fly Flyknit được sản xuất với tốc độ kỷ lục. Flyknit trên cung cấp hỗ trợ siêu nhẹ phù hợp như một chiếc găng tay.', '4699000', 'NikeZoomFlyFlyknit.png'),
-(12, 'Nike SB Solarsoft Portmore II', 1, 1, 298, 'Được thiết kế cho đế giày đặc biệt, Giày trượt ván nam Nike SB Solarsoft Portmore II kết hợp đệm mềm với đế ngoài bền, chắc chắn để bạn có thể tập trung vào buổi tập của mình.', '2069000', 'NikeSBSolarsoftPortmoreII.PNG'),
-(53, 'BALENCIAGA TRIPLE S 2019', 1, 4, 493, 'ok', '1700000', 'BALENCIAGA TRIPLE S.PNG'),
-(54, 'BALENCIAGA SPEED TRAINER ĐEN', 3, 4, 3996, 'Một sản phẩm tuyệt vời được nhiều bạn trẻ lựa chọn.', '730000', 'BALENCIAGA SPEED TRAINER ĐEN.PNG'),
-(55, 'BALENCIAGA BALEN DAD', 1, 4, 594, 'Đây là mẫu giày cũng được nhiều người nghệ sĩ thế giới lựa chọn. Tại Việt Nam, giày Triple S được rất nhiều nghệ sĩ nổi tiếng yêu thích.\r\n\r\nThiết kế đột phá.\r\nMột đôi giày ra đời đã phá vỡ những tiêu chuẩn về thời trang hiện nay.\r\nPhần đế cao, uốn lượn hơn hẳn để bạn ăn gian thêm vài centimet\r\nPha trộn những gam màu vintage và nhiều chất liệu vải khác nhau.\r\nTrên thân, gót hay đế giày cũng đều được thêu và khắc tên thương hiệu, tạo sự đẳng cấp.', '1330000', 'BALEN DAD.PNG'),
-(56, 'Balenciaga Track', 3, 4, 398, 'oki', '1700000', 'Balenciaga Track.PNG'),
-(68, 'Off-White & Orange Track', 1, 6, 1588, 'ok', '1230000', 'Black OG Old Skool LX.PNG'),
-(69, 'BALENCIAGA TRIPLE S 2018', 1, 4, 300, 'sản phẩm hot 2017', '1700000', 'Off-White & Orange Track.PNG'),
-(70, ' ADVANTAGE', 1, 2, 598, 'GIÀY TENNIS ĐƯỢC SÁNG TẠO LẠI ĐỂ MANG PHONG CÁCH ĐƯỜNG PHỐ.\r\nPhong cách thể thao thiết yếu. Với kiểu dáng đơn giản, mẫu giày lấy cảm hứng từ quần vợt này có phần thân giày bằng da mịn. 3 Sọc đục lỗ tạo điểm nhấn bên hông giày. Lót giày có đệm mang đến sự êm ái trong mỗi bước đi.', '1700000', 'GIÀY ADVANTAGE.PNG'),
-(71, 'ULTRABOOST 20', 1, 2, 295, 'KIỂM SOÁT LỰC KHI CHẠM ĐẤT, THOẢI MÁI TRONG TỪNG BƯỚC CHẠY.\r\nMỗi ngày mới. Mỗi buổi chạy mới. Hãy tận dụng tối đa. Đôi giày hiệu năng cao này có thân giày bằng vải dệt kim ôm chân. Các đường may trong trợ lực được bố trí chuẩn xác để tạo độ nâng đỡ ở đúng những vị trí cần thiết. Gót giày làm từ chất liệu elastane mềm mại cho độ ôm thoải mái hơn. Lớp đệm đàn hồi hoàn trả năng lượng cho từng sải bước tạo cảm giác như có thể chạy mãi mãi.', '1200000', 'ULTRABOOST 20.PNG'),
-(72, 'GRAND COURT', 1, 2, 899, 'oki', '1800000', 'GRAND COURT.PNG'),
-(73, 'CONTINENTAL 80', 2, 2, 800, 'PHONG CÁCH QUẦN VỢT TỪ NHỮNG NĂM 1980 TRỞ LẠI VỚI KIỂU DÁNG TƯƠI MỚI.\r\nMang dáng vẻ hoài cổ, Continental 80 giữ trọn kiểu dáng xưa cũ của những đôi giày thể thao trong nhà từ đầu những năm 1980. Mẫu giày da nổi bật với sọc kẻ hai màu hướng xuống dưới và đế cupsole khác biệt bằng cao su phân tách cho cảm giác thoải mái và linh hoạt.', '2500000', 'CONTINENTAL 80.PNG'),
-(74, 'Chuck 70 Specialty Suede Utility', 1, 3, 400, 'Chất liệu: Suede', '2200000', 'Chuck 70 Specialty Suede Utility.PNG'),
-(75, 'Chuck Taylor All Star Utility', 2, 3, 945, 'Chất liệu: Suede', '1400000', 'Chuck Taylor All Star Utility.PNG'),
-(76, 'Chuck Taylor All Star Space Utility', 1, 3, 694, NULL, '1500000', 'Chuck Taylor All Star Space Utility.PNG'),
-(77, 'Chuck Taylor Classic', 2, 3, 1500, NULL, '1400000', 'Chuck Taylor Classic.PNG');
+INSERT INTO `sanpham` (`MaSP`, `TenSP`, `MaDM`, `MaNCC`, `SoLuongKho`, `SoLuong`, `MoTa`, `DonGia`, `AnhNen`) VALUES
+(4, 'Nike Free Metcon 2 UT', 3, 1, 2072, 2678, 'Nike Free Metcon 2 UT mang đến một lớp hỗ trợ khác cho một loạt các bài tập huấn luyện. Dây đai bền giúp giữ bàn chân của bạn, trong khi bọt linh hoạt giúp bạn di chuyển tự nhiên từ trọng lượng đến máy khoan nhanh nhẹn.', '3829000', 'NikeFreeMetcon2UT.png'),
+(5, 'Zoom Freak 1', 3, 1, 395, 395, 'Nhận được sự kỳ dị của bạn trong chiếc giày đặc trưng đầu tay của Giannis Antetokounmpo, lần đầu tiên Nike mang lại cảm giác bóng rổ quốc tế. Zoom Freak 1 có bộ đệm siêu nhạy, khóa trước và lực kéo đa hướng cần thiết để bổ sung cho trò chơi thể thao kỳ dị của anh ta.', '3519000', 'ZoomFreak1.png'),
+(6, 'Nike Air VaporMax Flyknit 3', 3, 1, 196, 196, 'Nổi bật và bồng bềnh trong Nike Air VaporMax Flyknit 3. Các tính năng phía trên chảy 2 dòng của cấu trúc Flyknit thoáng khí, có thể kéo dài cho phong cách độc đáo, sẵn sàng trên đường phố. Công nghệ VaporMax Air mang tính cách mạng giúp duy trì mùa xuân trong bước chân của bạn với đệm từ gót chân đến gót chân.', '3500000', 'NikeAirVaporMaxFlyknit3.png'),
+(7, 'Nike Drop-Type Premium', 1, 1, 189, 189, 'Nike Drop-Type Premium được lấy cảm hứng từ những đôi giày tennis cổ điển trong gia đình NikeCourt. Một phần của gia đình N354 gật đầu với dặm bay nhanh nhất của Steve Prefontaine, nó cung cấp các dòng thiết kế riêng biệt mượn từ All Court 2.', '2499000', 'NikeDropTypePremium.png'),
+(9, 'Nike Zoom Rival Fly', 1, 1, 199, 199, 'Lấy cảm hứng từ các vận động viên tiếp sức Ekiden của Nhật Bản, Nike Zoom Rival Fly mang dáng vẻ tương lai với bộ phận Zoom Air ở bàn chân trước mang đến cho bạn lực đẩy nhạy. Rãnh uốn cong bên dưới tối ưu hóa ngón chân cái và đệm bọt mềm mại sải chân của bạn. Lưới và tổng hợp trên pha trộn sức mạnh và hơi thở.', '2649000', 'NikeZoomRivalFly.png'),
+(10, 'Nike Air Max 720 Waves', 1, 1, 382, 382, 'Mang lại một quan điểm mới cho văn hóa ngoài tòa án trong Nike Air Max 720 Waves của bạn. Lập trường cấu hình thấp của nó cho thấy đơn vị Air cao nhất của Nike cho đến nay trong khi thiết kế D / MS / X của nó pha trộn văn hóa với thể thao, cho phép bạn bước vào một chiều hướng mới của phong cách hoops với sự thoải mái vô song.', '5589000', 'NikeAirMax720Waves.PNG'),
+(11, 'Nike Zoom Fly Flyknit ', 1, 1, 380, 380, 'Giày chạy bộ Nike Zoom Fly Flyknit được sản xuất với tốc độ kỷ lục. Flyknit trên cung cấp hỗ trợ siêu nhẹ phù hợp như một chiếc găng tay.', '4699000', 'NikeZoomFlyFlyknit.png'),
+(12, 'Nike SB Solarsoft Portmore II', 1, 1, 298, 298, 'Được thiết kế cho đế giày đặc biệt, Giày trượt ván nam Nike SB Solarsoft Portmore II kết hợp đệm mềm với đế ngoài bền, chắc chắn để bạn có thể tập trung vào buổi tập của mình.', '2069000', 'NikeSBSolarsoftPortmoreII.PNG'),
+(53, 'BALENCIAGA TRIPLE S 2019', 1, 4, 493, 493, 'ok', '1700000', 'BALENCIAGA TRIPLE S.PNG'),
+(54, 'BALENCIAGA SPEED TRAINER ĐEN', 3, 4, 3996, 3996, 'Một sản phẩm tuyệt vời được nhiều bạn trẻ lựa chọn.', '730000', 'BALENCIAGA SPEED TRAINER ĐEN.PNG'),
+(55, 'BALENCIAGA BALEN DAD', 1, 4, 594, 594, 'Đây là mẫu giày cũng được nhiều người nghệ sĩ thế giới lựa chọn. Tại Việt Nam, giày Triple S được rất nhiều nghệ sĩ nổi tiếng yêu thích.\r\n\r\nThiết kế đột phá.\r\nMột đôi giày ra đời đã phá vỡ những tiêu chuẩn về thời trang hiện nay.\r\nPhần đế cao, uốn lượn hơn hẳn để bạn ăn gian thêm vài centimet\r\nPha trộn những gam màu vintage và nhiều chất liệu vải khác nhau.\r\nTrên thân, gót hay đế giày cũng đều được thêu và khắc tên thương hiệu, tạo sự đẳng cấp.', '1330000', 'BALEN DAD.PNG'),
+(56, 'Balenciaga Track', 3, 4, 398, 398, 'oki', '1700000', 'Balenciaga Track.PNG'),
+(68, 'Off-White & Orange Track', 1, 6, 1588, 1588, 'ok', '1230000', 'Black OG Old Skool LX.PNG'),
+(69, 'BALENCIAGA TRIPLE S 2018', 1, 4, 300, 300, 'sản phẩm hot 2017', '1700000', 'Off-White & Orange Track.PNG'),
+(70, ' ADVANTAGE', 1, 2, 598, 598, 'GIÀY TENNIS ĐƯỢC SÁNG TẠO LẠI ĐỂ MANG PHONG CÁCH ĐƯỜNG PHỐ.\r\nPhong cách thể thao thiết yếu. Với kiểu dáng đơn giản, mẫu giày lấy cảm hứng từ quần vợt này có phần thân giày bằng da mịn. 3 Sọc đục lỗ tạo điểm nhấn bên hông giày. Lót giày có đệm mang đến sự êm ái trong mỗi bước đi.', '1700000', 'GIÀY ADVANTAGE.PNG'),
+(71, 'ULTRABOOST 20', 1, 2, 295, 295, 'KIỂM SOÁT LỰC KHI CHẠM ĐẤT, THOẢI MÁI TRONG TỪNG BƯỚC CHẠY.\r\nMỗi ngày mới. Mỗi buổi chạy mới. Hãy tận dụng tối đa. Đôi giày hiệu năng cao này có thân giày bằng vải dệt kim ôm chân. Các đường may trong trợ lực được bố trí chuẩn xác để tạo độ nâng đỡ ở đúng những vị trí cần thiết. Gót giày làm từ chất liệu elastane mềm mại cho độ ôm thoải mái hơn. Lớp đệm đàn hồi hoàn trả năng lượng cho từng sải bước tạo cảm giác như có thể chạy mãi mãi.', '1200000', 'ULTRABOOST 20.PNG'),
+(72, 'GRAND COURT', 1, 2, 899, 899, 'oki', '1800000', 'GRAND COURT.PNG'),
+(73, 'CONTINENTAL 80', 2, 2, 800, 800, 'PHONG CÁCH QUẦN VỢT TỪ NHỮNG NĂM 1980 TRỞ LẠI VỚI KIỂU DÁNG TƯƠI MỚI.\r\nMang dáng vẻ hoài cổ, Continental 80 giữ trọn kiểu dáng xưa cũ của những đôi giày thể thao trong nhà từ đầu những năm 1980. Mẫu giày da nổi bật với sọc kẻ hai màu hướng xuống dưới và đế cupsole khác biệt bằng cao su phân tách cho cảm giác thoải mái và linh hoạt.', '2500000', 'CONTINENTAL 80.PNG'),
+(74, 'Chuck 70 Specialty Suede Utility', 1, 3, 400, 400, 'Chất liệu: Suede', '2200000', 'Chuck 70 Specialty Suede Utility.PNG'),
+(75, 'Chuck Taylor All Star Utility', 2, 3, 945, 945, 'Chất liệu: Suede', '1400000', 'Chuck Taylor All Star Utility.PNG'),
+(76, 'Chuck Taylor All Star Space Utility', 1, 3, 694, 694, NULL, '1500000', 'Chuck Taylor All Star Space Utility.PNG'),
+(77, 'Chuck Taylor Classic', 2, 3, 1500, 1500, NULL, '1400000', 'Chuck Taylor Classic.PNG');
 
 -- --------------------------------------------------------
 
@@ -1016,7 +1057,7 @@ ALTER TABLE `binhluan`
 -- AUTO_INCREMENT cho bảng `danhmuc`
 --
 ALTER TABLE `danhmuc`
-  MODIFY `MaDM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `MaDM` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT cho bảng `hoadon`
@@ -1052,96 +1093,19 @@ ALTER TABLE `nhanvien`
 -- AUTO_INCREMENT cho bảng `phieunhap`
 --
 ALTER TABLE `phieunhap`
-  MODIFY `MaPN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=175;
+  MODIFY `MaPN` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=220;
 
 --
 -- AUTO_INCREMENT cho bảng `phieuxuat`
 --
 ALTER TABLE `phieuxuat`
-  MODIFY `MaPX` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `MaPX` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT cho bảng `sanpham`
 --
 ALTER TABLE `sanpham`
-  MODIFY `MaSP` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
-
---
--- Các ràng buộc cho các bảng đã đổ
---
-
---
--- Các ràng buộc cho bảng `binhluan`
---
-ALTER TABLE `binhluan`
-  ADD CONSTRAINT `binhluan_ibfk_1` FOREIGN KEY (`MaKH`) REFERENCES `khachhang` (`MaKH`),
-  ADD CONSTRAINT `binhluan_ibfk_2` FOREIGN KEY (`MaSP`) REFERENCES `sanpham` (`MaSP`);
-
---
--- Các ràng buộc cho bảng `chitiethoadon`
---
-ALTER TABLE `chitiethoadon`
-  ADD CONSTRAINT `chitiethoadon_ibfk_1` FOREIGN KEY (`MaHD`) REFERENCES `hoadon` (`MaHD`),
-  ADD CONSTRAINT `chitiethoadon_ibfk_2` FOREIGN KEY (`MaSP`) REFERENCES `sanpham` (`MaSP`),
-  ADD CONSTRAINT `chitiethoadon_ibfk_3` FOREIGN KEY (`Size`) REFERENCES `size` (`MaSize`),
-  ADD CONSTRAINT `chitiethoadon_ibfk_4` FOREIGN KEY (`MaMau`) REFERENCES `mau` (`MaMau`);
-
---
--- Các ràng buộc cho bảng `chitietsanpham`
---
-ALTER TABLE `chitietsanpham`
-  ADD CONSTRAINT `chitietsanpham_ibfk_1` FOREIGN KEY (`MaSize`) REFERENCES `size` (`MaSize`),
-  ADD CONSTRAINT `chitietsanpham_ibfk_2` FOREIGN KEY (`MaSP`) REFERENCES `sanpham` (`MaSP`),
-  ADD CONSTRAINT `chitietsanpham_ibfk_3` FOREIGN KEY (`MaMau`) REFERENCES `mau` (`MaMau`);
-
---
--- Các ràng buộc cho bảng `hoadon`
---
-ALTER TABLE `hoadon`
-  ADD CONSTRAINT `hoadon_ibfk_1` FOREIGN KEY (`MaKH`) REFERENCES `khachhang` (`MaKH`),
-  ADD CONSTRAINT `hoadon_ibfk_2` FOREIGN KEY (`MaNV`) REFERENCES `nhanvien` (`MaNV`);
-
---
--- Các ràng buộc cho bảng `nguoinhan`
---
-ALTER TABLE `nguoinhan`
-  ADD CONSTRAINT `nguoinhan_ibfk_1` FOREIGN KEY (`MaHD`) REFERENCES `hoadon` (`MaHD`);
-
---
--- Các ràng buộc cho bảng `nhanvien`
---
-ALTER TABLE `nhanvien`
-  ADD CONSTRAINT `nhanvien_ibfk_1` FOREIGN KEY (`Quyen`) REFERENCES `quyen` (`id`);
-
---
--- Các ràng buộc cho bảng `phieunhap`
---
-ALTER TABLE `phieunhap`
-  ADD CONSTRAINT `phieunhap_ibfk_1` FOREIGN KEY (`MaNV`) REFERENCES `nhanvien` (`MaNV`),
-  ADD CONSTRAINT `phieunhap_ibfk_2` FOREIGN KEY (`MaSP`) REFERENCES `sanpham` (`MaSP`);
-
---
--- Các ràng buộc cho bảng `phieuxuat`
---
-ALTER TABLE `phieuxuat`
-  ADD CONSTRAINT `phieuxuat_ibfk_1` FOREIGN KEY (`MaNV`) REFERENCES `nhanvien` (`MaNV`),
-  ADD CONSTRAINT `phieuxuat_ibfk_2` FOREIGN KEY (`MaSP`) REFERENCES `sanpham` (`MaSP`),
-  ADD CONSTRAINT `phieuxuat_ibfk_3` FOREIGN KEY (`Mau`) REFERENCES `mau` (`MaMau`),
-  ADD CONSTRAINT `phieuxuat_ibfk_4` FOREIGN KEY (`Size`) REFERENCES `size` (`MaSize`);
-
---
--- Các ràng buộc cho bảng `sanpham`
---
-ALTER TABLE `sanpham`
-  ADD CONSTRAINT `sanpham_ibfk_1` FOREIGN KEY (`MaNCC`) REFERENCES `nhacc` (`MaNCC`),
-  ADD CONSTRAINT `sanpham_ibfk_2` FOREIGN KEY (`MaDM`) REFERENCES `danhmuc` (`MaDM`);
-
---
--- Các ràng buộc cho bảng `sanphamkhuyenmai`
---
-ALTER TABLE `sanphamkhuyenmai`
-  ADD CONSTRAINT `sanphamkhuyenmai_ibfk_1` FOREIGN KEY (`MaKM`) REFERENCES `khuyenmai` (`MaKM`),
-  ADD CONSTRAINT `sanphamkhuyenmai_ibfk_2` FOREIGN KEY (`MaSP`) REFERENCES `sanpham` (`MaSP`);
+  MODIFY `MaSP` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

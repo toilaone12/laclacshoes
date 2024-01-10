@@ -37,12 +37,16 @@ if (isset($_GET['suadm'])) {
 // xóa màu
 if (isset($_GET['xoa'])) {
 	$madm = $_GET['madm'];
-	$sql = "delete from danhmuc where MaDM = ".$madm;
-	$rs = mysqli_query($conn, $sql);
-	// var_dump(mysqli_error($conn)); die;
-	if (($rs)) {
-		header('location:../index.php?action=danhmuc&view=themdm&thongbao=Xóa danh mục thành công');
-	} else {
-		header('location:../index.php?action=danhmuc&view=themdm&thongbao='.mysqli_error($conn));
+	$sql1 = "DELETE FROM sanpham WHERE MaDM = ".$madm;
+	$rs1 = mysqli_query($conn,$sql1);
+	if($rs1){
+		$sql = "delete from danhmuc where MaDM = ".$madm;
+		$rs = mysqli_query($conn, $sql);
+		// var_dump(mysqli_error($conn)); die;
+		if (($rs)) {
+			header('location:../index.php?action=danhmuc&view=themdm&thongbao=Xóa danh mục thành công');
+		} else {
+			header('location:../index.php?action=danhmuc&view=themdm&thongbao='.mysqli_error($conn));
+		}
 	}
 }

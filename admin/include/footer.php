@@ -87,6 +87,26 @@
     $(document).on('change', '.one-image', function(e){
       $('.file-image').html('[' + this.files[0].name + ']');
     })
+    $(document).on('click','#btn1',function(e){
+      e.preventDefault();
+      console.log(1);
+      $('.apply-type').removeAttr('disabled')
+    })
+    $(document).on('click','#btn2',function(e){
+      e.preventDefault();
+      console.log(12);
+      $('.apply-type').attr('disabled','disabled')
+    })
+    $(document).on('click','.choose-sp', function(e){
+      // e.preventDefault();
+      let length = $('.choose-sp:checked').length;
+      if(length == 0){
+        $('.apply-type').attr('disabled','disabled')
+      }else{
+        $('.apply-type').removeAttr('disabled')
+
+      }
+    })
   });
 </script>
 
