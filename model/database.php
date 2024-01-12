@@ -184,22 +184,50 @@ mysqli_close($conn);
 // check phiếu giảm giá
 if (isset($_POST["functionName"])) {
   if ($_POST["functionName"] == "check_coupon") {
-    $id = $_POST["id"];
-    $result = check_coupon($id);
+    $code = $_POST["code"];
+    $result = check_coupon($code);
     echo json_encode($result);
   }
 }
-function check_coupon($id){
+function check_coupon($code,$makh){
   global $conn;
-  $sql="SELECT * FROM `phieugiamgia` WHERE `id` = '$id'";
+  $sql="SELECT * FROM `phieugiamgia` WHERE `CodePhieu` = '$code'";
   $resulf = mysqli_query($conn ,$sql);  
   $count=mysqli_num_rows($resulf);        
   if($count==0){
     return $coupon=0;
   }else{
-    $coupon=mysqli_fetch_array($resulf);
+    $coupon=mysqli_fetch_assoc($resulf);
+    $id = $coupon['MaPGG'];
+    $sqlCheck = "SELECT * FROM `khachhangphieugiamgia` WHERE `MaPGG` = '$id' AND `MaKH` = $makh";
+    $rsCheck = mysqli_query($conn,$sqlCheck);
+    $count1 = $rsCheck->num_rows;
     return number_format( $coupon['SoTien']);
   }     
+mysqli_close($conn);
+}
+function get_coupon(){
+  global $conn;
+  $sql="SELECT * FROM `phieugiamgia`";
+  $resulf = mysqli_query($conn ,$sql);  
+  $count=mysqli_num_rows($resulf);        
+  if($count==0){
+    return false;
+  }else{
+    return $resulf;
+  }     
+mysqli_close($conn);
+}
+function get_coupon_customer($mapgg,$makh){
+  global $conn;
+  $sql="SELECT * FROM `khachhangphieugiamgia` WHERE `MaPGG` = '$mapgg' AND `MaKH` = '$makh'";
+  $resulf = mysqli_query($conn ,$sql);  
+  $count=mysqli_num_rows($resulf);        
+  if($count==0){
+    return false;
+  }else{
+    return $resulf;
+  }      
 mysqli_close($conn);
 }
 // các bình luận product

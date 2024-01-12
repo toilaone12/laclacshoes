@@ -29,6 +29,7 @@ switch ($view) {
         <?php } ?>
         <div class="row row-pb-md"> 
         <?php
+            if($products){
             while ($row=(mysqli_fetch_array($products))) { $price_sale=price_sale($row['MaSP'],$row['DonGia']);?>
             <div class="col-lg-3 mb-4 ">
                 <div class="product-entry border" style="height: 350px;">
@@ -43,6 +44,11 @@ switch ($view) {
                     </div>
                 </div>
             </div> 
+            <?php } }else{?>
+                <div class="d-flex justify-content-center align-items-center mt-3" style="height: 300px;">
+                    <i class="fa-regular fa-circle-xmark text-danger mr-3" style="font-size: 50px;"></i>
+                    <span class="text-danger fs-25">Hiện không có sản phẩm với từ khóa trên</span>
+                </div>
             <?php }?>      
         </div>
     </div>

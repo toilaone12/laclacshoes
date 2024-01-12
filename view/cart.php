@@ -35,7 +35,7 @@
                         <span>THÔNG TIN CHI TIẾT SẢN PHẨM</span>
                     </div>
                     <div class="one-eight text-center">
-                        <span>Size</span>
+                        <span>Kích cỡ</span>
                     </div>
                     <div class="one-eight text-center">
                         <span>Màu</span>

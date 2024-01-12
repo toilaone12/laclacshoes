@@ -11,6 +11,8 @@
 - Thanh toán online
 + Tích hợp thêm thanh toán VNPAY (đã fix)
 + Gửi email cho thanh toán Momo (đã fix)
+- Tìm kiếm
++ Đã sửa lại lỗi tìm kiếm không ra thông tin
 * Lưu ý:
 - Momo: Hạn mức giao dịch dưới 50tr (tốt nhất khoảng 30tr thôi);
 - VNPAY: Hạn mức giao dịch dưới 200tr (tốt nhất khoảng 150tr thôi);

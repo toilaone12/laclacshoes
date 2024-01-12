@@ -26,11 +26,11 @@ $(document).ready(function(){
 $(document).ready(function(){
     var submit= $("input#Apply_Coupon");
     submit.click(function(){
-        var id=$('input#Coupon').val();
-        $('span#coupon2').text('Đã áp dụng mã : ' + id);
+        var code=$('input#Coupon').val();
+        $('span#coupon2').text('Đã áp dụng mã : ' + code);
         var datas = {
             functionName: 'check_coupon',
-            id: id
+            code: code
         };
         $.ajax({
             url: 'model/database.php',
@@ -121,6 +121,23 @@ $(document).ready(function(){
                 // }
             }
         });
+    })
+    $(document).on('click', '.copy-discount', function(e){
+        var code = $(this).closest('.coupon').find('.code-discount').text().trim();
+        // console.log(code);
+        var blob = new Blob([code], { type: "text/plain" });
+
+        // Tạo một thực thể ClipboardItem từ blob
+        var clipboardItem = new ClipboardItem({ "text/plain": blob });
+
+        // Sao chép clipboardItem vào clipboard
+        navigator.clipboard.write([clipboardItem])
+            .then(function() {
+                alert("Đã sao chép vào clipboard");
+            })
+            .catch(function(error) {
+                console.error("Lỗi khi sao chép vào clipboard: " + error);
+            });
     })
 });
 

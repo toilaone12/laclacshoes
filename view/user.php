@@ -4,6 +4,9 @@ if (!isset($_SESSION['laclac_khachang'])) {
 } else {
     $kh = $_SESSION['laclac_khachang'];
 }
+$makh = $kh['MaKH'];
+// var_dump($kh);
+$listDiscount = get_coupon();
 ?>
 <div class="breadcrumbs">
     <div class="container">
@@ -28,11 +31,14 @@ if (!isset($_SESSION['laclac_khachang'])) {
                                 <a class="nav-link" id="pills-review-tab" data-toggle="pill" href="#pills-review" role="tab" aria-controls="pills-review" aria-expanded="true">Đơn Hàng</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" id="pills-discount-tab" data-toggle="pill" href="#pills-discount" role="tab" aria-controls="pills-discount" aria-expanded="true">Phiếu giảm giá</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link bg-info text-white" href="?view=logout">Đăng xuất</a>
                             </li>
                         </ul>
                         <div class="tab-content" id="pills-tabContent">
-                            <div class="tab-pane border fade show active" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
+                            <div class="tab-pane border" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
                                 <form class="form-horizontal" action="" method="post" id="login_form">
                                     <fieldset>
                                         <div class="form-group">
@@ -90,12 +96,12 @@ if (!isset($_SESSION['laclac_khachang'])) {
                                     </thead>
                                     <tbody>
                                         <?php $bill = bill_user($kh['MaKH']);
-                                            if ($bill == false) {
-                                                echo '<p>Chưa có đơn hàng</p>';
-                                            } else {
-                                                $stt = 1;
-                                                while ($row = mysqli_fetch_array($bill)) { 
-                                                    $tinhtrang = convert_vn2latin(mb_strtolower($row['TinhTrang']))
+                                        if ($bill == false) {
+                                            echo '<p>Chưa có đơn hàng</p>';
+                                        } else {
+                                            $stt = 1;
+                                            while ($row = mysqli_fetch_array($bill)) {
+                                                $tinhtrang = convert_vn2latin(mb_strtolower($row['TinhTrang']))
                                         ?>
                                                 <tr>
                                                     <th scope="row" class=" align-middle"><?php echo $stt++; ?></th>
@@ -135,17 +141,60 @@ if (!isset($_SESSION['laclac_khachang'])) {
                                                     <td class="align-middle">
                                                         <span class="badge <?= $tinhtrang == 'hoan thanh' ? 'badge-success' : ($tinhtrang == 'huy bo' ? 'badge-danger' : 'badge-warning') ?> px-3 py-2 fs-13 rounded-pill text-white d-inline"><?php echo ucfirst($row['TinhTrang']); ?></span>
                                                     </td>
-                                                    <td width="150" class="align-middle"><?php echo date('d/m/Y H:i',strtotime($row['NgayDat'])); ?></td>
-                                                    <td width="150" class="align-middle"> <?php echo date('d/m/Y H:i',strtotime($row['NgayGiao'])); ?></td>
+                                                    <td width="150" class="align-middle"><?php echo date('d/m/Y H:i', strtotime($row['NgayDat'])); ?></td>
+                                                    <td width="150" class="align-middle"> <?php echo date('d/m/Y H:i', strtotime($row['NgayGiao'])); ?></td>
                                                 </tr>
-                                                
-                                        <?php    
-                                                }
+
+                                        <?php
                                             }
+                                        }
                                         ?>
                                     </tbody>
                                 </table>
 
+                            </div>
+                            <div class="tab-pane fade show active" id="pills-discount" role="tabpanel" aria-labelledby="pills-discount-tab">
+                                <div class="my-5">
+                                    <div class="row">
+                                        <?php
+                                            if($listDiscount){
+                                                // var_dump($listDiscount);
+                                                while($row = mysqli_fetch_assoc($listDiscount)){
+                                                    $customerDiscount = get_coupon_customer($makh,$row['MaPGG']);
+                                                    if($customerDiscount){
+                                        ?>
+                                        <div class="col-sm-6">
+                                            <div class="coupon bg-white rounded mb-3 d-flex justify-content-between">
+                                                <div class="tengah p-3 d-flex w-100 justify-content-start">
+                                                    <div>
+                                                        <span class="badge badge-success">Còn <?=$row['SoLuong'];?> mã</span>
+                                                        <h3 class="lead">Tên phiếu: <?=$row['TenPhieu'];?></h3>
+                                                        <p class="text-muted mb-0">Mã Code: <span class="code-discount"><?=$row['CodePhieu'];?></span></p>
+                                                    </div>
+                                                </div>
+                                                <div class="kanan">
+                                                    <div class="info m-3 d-flex align-items-center">
+                                                        <div class="w-100">
+                                                            <div class="block">
+                                                                <span class="time font-weight-light">
+                                                                    <span>Hạn đến: <?=date('d/m/Y',strtotime($row['ThoiHan']));?></span>
+                                                                </span>
+                                                            </div>
+                                                            <a target="_blank" class="copy-discount mt-3 btn btn-sm btn-outline-danger btn-block">
+                                                                Sao chép
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php
+                                                    }
+                                                }
+                                            }
+                                        ?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
