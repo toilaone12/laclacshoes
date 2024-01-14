@@ -7,6 +7,9 @@ $rsPrint = mysqli_query($conn, $sql);
 $sql2 = "select * from nguoinhan where MaHD=$mahd";
 $rs2 = mysqli_query($conn, $sql2);
 $row2 = mysqli_fetch_array($rs2);
+$sql3 = "SELECT * FROM `hoadon` WHERE MaHD = $mahd";
+$rs3 = mysqli_query($conn, $sql3);
+$phuongthuc = mysqli_fetch_assoc($rs3)['PhuongThucThanhToan'];
 // var_dump($rs); die;
 ?>
 <div class="row">
@@ -22,13 +25,16 @@ $row2 = mysqli_fetch_array($rs2);
 						<span class="fs-14">Mã Hóa Đơn: <?php echo $mahd ?></span>
 					</div>
 					<div>
-						<span class="fs-14">Tên Người Nhận: <?php echo $row2['TenNN']; ?> </span>
+						<span class="fs-14">Tên người nhận: <?php echo $row2['TenNN']; ?> </span>
 					</div>
 					<div>
-						<span class="fs-14">Địa Chỉ Người Nhận: <?php echo $row2['DiaChiNN'] ?> </span>
+						<span class="fs-14">Địa chỉ người nhận: <?php echo $row2['DiaChiNN'] ?> </span>
 					</div>
 					<div>
-						<span class="fs-14">SĐT Người Nhận: <?php echo $row2['SDTNN'] ?> </span>
+						<span class="fs-14">SĐT người nhận: <?php echo $row2['SDTNN'] ?> </span>
+					</div>
+					<div>
+						<span class="fs-14">Phương thức thanh toán: <?php echo $phuongthuc == 1 ? 'Thanh toán khi nhận hàng' : ($phuongthuc == 2 ? 'Thanh toán bằng MoMo' : 'Thanh toán bằng VNPAY'); ?> </span>
 					</div>
 				</div>
 				<div class="col-lg-5">

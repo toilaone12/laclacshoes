@@ -148,7 +148,8 @@ function sendMail($nn,$dcnn,$sdtnn,$makh,$tt,$email){
         <p>Tổng cộng: '. number_format($tt).' đ</p>
         </body>
         </html>';
-    $order=order_product($nn,$dcnn,$sdtnn,$makh,$tt);
+    $order=order_product($nn,$dcnn,$sdtnn,$makh,$tt,1);
+    // return $order;
     if($order){
         $mail = new PHPMailer(true);
         $mail->isSMTP();                                            // sử dụng SMTP
@@ -182,7 +183,8 @@ if (isset($_POST['cod'])) {
     $kh = $_SESSION['laclac_khachang'];
     $makh = $kh['MaKH'];
     $tt = $_POST['tongtien'];
-    sendMail($nn, $dcnn, $sdtnn, $makh, $tt, $email);
+    $send = sendMail($nn, $dcnn, $sdtnn, $makh, $tt, $email);
+    // var_dump($send); die;
 } else if (isset($_POST['momo'])) {
     // echo 'thanh toán bằng momo';
     // var_dump($_POST); die;
@@ -225,7 +227,7 @@ if (isset($_POST['cod'])) {
     $orderInfo = "Thanh toán qua MoMo";
     $amount = $_POST['tongtien'];
     $orderId = time() . "";
-    $redirectUrl = "http://localhost/laclacshoes/?view=online";
+    $redirectUrl = "http://localhost/laclacshoes/?view=online&phuongthuc=2";
     $ipnUrl = "http://localhost/laclacshoes/?view=online";
     $extraData = "";
 
@@ -268,7 +270,7 @@ if (isset($_POST['cod'])) {
         'tongtien' => $_POST['tongtien']
     ];
     $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    $vnp_Returnurl = "http://localhost/laclacshoes/?view=online";
+    $vnp_Returnurl = "http://localhost/laclacshoes/?view=online&phuongthuc=3";
     $vnp_TmnCode = "24J0WB02"; //Mã website tại VNPAY 
     $vnp_HashSecret = "DIWYMSPOCNFUWHBRGHFRYKWEDPKOSPXK"; //Chuỗi bí mật
 

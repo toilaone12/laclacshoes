@@ -115,7 +115,7 @@
                                         <p><span id="coupon2"></span></p>
                                     </div>
                                     <div class="col-sm-3">
-                                        <input type="button" id="Apply_Coupon" value="Áp dụng" class="btn btn-primary">
+                                        <input type="button" id="Apply_Coupon" value="Áp dụng" data-makh="<?=isset($_SESSION['laclac_khachang']) && $_SESSION['laclac_khachang'] ? $_SESSION['laclac_khachang']['MaKH'] : 0;?>" class="btn btn-primary">
                                     </div>
                                 </div>
                             </form>

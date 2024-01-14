@@ -9,6 +9,7 @@
 						<th>Người nhận</th>
 						<th>Nhân Viên</th>
 						<th>Ngày Đặt</th>
+						<th>Phương thức thanh toán</th>
 						<th>Tổng Tiền</th>
 						<th>Tình trạng</th>
 						<th>Chức năng</th>
@@ -53,6 +54,7 @@
 							<td><?php echo $tenKH?></td>
 							<td><?php echo $tenNV?></td>
 							<td><?php echo $row['NgayDat']; ?></td>
+							<td><?php echo $row['PhuongThucThanhToan'] == 1 ? 'Thanh toán khi nhận hàng' : ($row['PhuongThucThanhToan'] == 2 ? 'Thanh toán bằng MoMo' : 'Thanh toán bằng VNPAY'); ?></td>
 							<td><?php echo number_format($row['TongTien']) . ' đ'; ?></td>
 							<td><?php if ($row['TinhTrang'] === 'chưa duyệt') { ?>
 									<label class="badge badge-warning px-2 py-2 fs-12">
@@ -82,12 +84,12 @@
 
 							</td>
 							<td width="235">
-								<a class="d-block mb-3 btn btn-outline-primary w-75 nav-link fs-14 text-capitalize" href="index.php?action=xldathang&view=ctdh&mahd=<?php echo $row['MaHD']; ?>"><i class="fas fa-list"></i> Chi tiết </a>
+								<a class="d-block mb-3 mx-auto btn btn-outline-primary w-75 nav-link fs-14 text-capitalize" href="index.php?action=xldathang&view=ctdh&mahd=<?php echo $row['MaHD']; ?>"><i class="fas fa-list"></i> Chi tiết </a>
 								<?php if ($row['TinhTrang'] === "chưa duyệt") {
-									echo '<a class="d-block mb-3 btn btn-outline-success w-75 fs-14 text-capitalize" href="dondathang/xuly.php?action=duyet&mahd=' . $row['MaHD'] . '" ><i class="fas fa-check"></i> Duyệt</a>';
+									echo '<a class="d-block mb-3 mx-auto btn btn-outline-success w-75 fs-14 text-capitalize" href="dondathang/xuly.php?action=duyet&mahd=' . $row['MaHD'] . '" ><i class="fas fa-check"></i> Duyệt</a>';
 								} ?>
 								<?php if ($row['TinhTrang'] === "chưa duyệt") { ?>
-									<a class="d-block mb-3 btn btn-outline-danger w-75 fs-14 text-capitalize" href="dondathang/xuly.php?action=huy&mahd=<?php echo $row['MaHD']; ?>"><i class="fas fa-xmark"></i> Hủy đơn</a>
+									<a class="d-block mb-3 mx-auto btn btn-outline-danger w-75 fs-14 text-capitalize" href="dondathang/xuly.php?action=huy&mahd=<?php echo $row['MaHD']; ?>"><i class="fas fa-xmark"></i> Hủy đơn</a>
 								<?php } ?>
 							</td>
 						</tr>

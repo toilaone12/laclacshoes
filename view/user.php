@@ -79,7 +79,7 @@ $listDiscount = get_coupon();
                                     </fieldset>
                                 </form>
                             </div>
-                            <div class="tab-pane" id="pills-review" role="tabpanel" aria-labelledby="pills-review-tab">
+                            <div class="tab-pane fade show active" id="pills-review" role="tabpanel" aria-labelledby="pills-review-tab">
                                 <table class="table align-middle mb-0 bg-white">
                                     <thead class="bg-light">
                                         <tr>
@@ -87,11 +87,13 @@ $listDiscount = get_coupon();
                                             <th class="fw-bold">Tên sản phẩm</th>
                                             <th class="fw-bold">Kích cỡ</th>
                                             <th class="fw-bold">Màu sắc</th>
-                                            <th class="fw-bold">Giá</th>
+                                            <!-- <th class="fw-bold">Giá</th> -->
+                                            <th class="fw-bold">Phương thức thanh toán</th>
                                             <th class="fw-bold">Tổng cộng</th>
                                             <th class="fw-bold">Tình trạng đơn hàng</th>
-                                            <th class="fw-bold">Ngày đặt</th>
-                                            <th class="fw-bold">Ngày giao</th>
+                                            <!-- <th class="fw-bold">Ngày đặt</th>
+                                            <th class="fw-bold">Ngày giao</th> -->
+                                            <th class="fw-bold">Chức năng</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -104,8 +106,8 @@ $listDiscount = get_coupon();
                                                 $tinhtrang = convert_vn2latin(mb_strtolower($row['TinhTrang']))
                                         ?>
                                                 <tr>
-                                                    <th scope="row" class=" align-middle"><?php echo $stt++; ?></th>
-                                                    <td>
+                                                    <td scope="row" class=" align-middle"><?php echo $stt++; ?></>
+                                                    <td class="align-middle">
                                                         <div class="d-flex align-items-center">
                                                             <div class="ms-2">
                                                                 <?php $bill_detail = bill_detail($row['MaHD']);
@@ -116,33 +118,40 @@ $listDiscount = get_coupon();
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>
+                                                    <td  class="align-middle">
                                                         <?php $bill_detail = bill_detail($row['MaHD']);
                                                         while ($row1 = mysqli_fetch_array($bill_detail)) {
                                                             $product = mysqli_fetch_array(product($row1['MaSP']));  ?>
                                                             <p class=" mb-1"><?php echo $row1['Size'] ?></p>
                                                         <?php } ?>
                                                     </td>
-                                                    <td>
+                                                    <td  class="align-middle">
                                                         <?php $bill_detail = bill_detail($row['MaHD']);
                                                         while ($row1 = mysqli_fetch_array($bill_detail)) {
                                                             $product = mysqli_fetch_array(product($row1['MaSP']));  ?>
                                                             <p class=" mb-1"><?php echo $row1['MaMau']; ?></p>
                                                         <?php } ?>
                                                     </td>
-                                                    <td>
+                                                    <!-- <td class="align-middle">
                                                         <?php $bill_detail = bill_detail($row['MaHD']);
                                                         while ($row1 = mysqli_fetch_array($bill_detail)) {
                                                             $product = mysqli_fetch_array(product($row1['MaSP']));  ?>
                                                             <p class=" mb-1"><?php echo number_format($row1['ThanhTien']); ?></p>
                                                         <?php } ?>
-                                                    </td>
+                                                    </td> -->
+                                                    <td class="align-middle"> <?php echo $row['PhuongThucThanhToan'] == 1 ? 'Thanh toán khi nhận hàng' : ($row['PhuongThucThanhToan'] == 2 ? 'Thanh toán bằng MoMo' : 'Thanh toán bằng VNPAY'); ?> </td>
                                                     <td class="align-middle"> <?php echo number_format($row['TongTien']); ?> </td>
                                                     <td class="align-middle">
-                                                        <span class="badge <?= $tinhtrang == 'hoan thanh' ? 'badge-success' : ($tinhtrang == 'huy bo' ? 'badge-danger' : 'badge-warning') ?> px-3 py-2 fs-13 rounded-pill text-white d-inline"><?php echo ucfirst($row['TinhTrang']); ?></span>
+                                                        <span class="tinhtrang badge <?= $tinhtrang == 'hoan thanh' ? 'badge-success' : ($tinhtrang == 'huy bo' ? 'badge-danger' : 'badge-warning') ?> px-3 py-2 fs-13 rounded-pill text-white d-inline"
+                                                        data-status="<?= $tinhtrang == 'chua duyet' ? 0 : ($tinhtrang == 'da duyet' ? 1 : ($tinhtrang == 'hoan thanh' ? 2 : 3)) ?>">
+                                                            <?php echo ucfirst($row['TinhTrang']); ?>
+                                                        </span>
                                                     </td>
-                                                    <td width="150" class="align-middle"><?php echo date('d/m/Y H:i', strtotime($row['NgayDat'])); ?></td>
-                                                    <td width="150" class="align-middle"> <?php echo date('d/m/Y H:i', strtotime($row['NgayGiao'])); ?></td>
+                                                    <!-- <td width="150" class="align-middle"><?php echo date('d/m/Y H:i', strtotime($row['NgayDat'])); ?></td>
+                                                    <td width="150" class="align-middle"> <?php echo $row['NgayGiao'] ? date('d/m/Y H:i', strtotime($row['NgayGiao'])) : 'Không có'; ?></td> -->
+                                                    <td class="align-middle">
+                                                        <button data-toggle="modal" data-target="#detailBill" class="btn btn-outline-info text-capitalize rounded-0 fs-13 open-modal-detail" data-id="<?=$row['MaHD']?>">Chi tiết</button>
+                                                    </td>
                                                 </tr>
 
                                         <?php
@@ -153,14 +162,14 @@ $listDiscount = get_coupon();
                                 </table>
 
                             </div>
-                            <div class="tab-pane fade show active" id="pills-discount" role="tabpanel" aria-labelledby="pills-discount-tab">
+                            <div class="tab-pane" id="pills-discount" role="tabpanel" aria-labelledby="pills-discount-tab">
                                 <div class="my-5">
                                     <div class="row">
                                         <?php
                                             if($listDiscount){
-                                                // var_dump($listDiscount);
                                                 while($row = mysqli_fetch_assoc($listDiscount)){
-                                                    $customerDiscount = get_coupon_customer($makh,$row['MaPGG']);
+                                                    $customerDiscount = get_coupon_customer($row['MaPGG'],$makh);
+                                                    // var_dump($customerDiscount);
                                                     if($customerDiscount){
                                         ?>
                                         <div class="col-sm-6">
@@ -203,6 +212,26 @@ $listDiscount = get_coupon();
         </div>
     </div>
 </div>
+<div class="modal fade" id="detailBill" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="max-width: 850px !important;" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Chi tiết hóa đơn</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="post" id="cancelBill">
+          <div class="modal-body list-detail">
+              
+          </div>
+          <div class="modal-footer type-button">
+            <!-- <button type="button" class="btn text-capitalize rounded-0 fs-13 btn-outline-danger" data-dismiss="modal">Đóng</button> -->
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
 <?php
 if (isset($_POST['luu'])) {
     $id = $_POST['makh'];
@@ -219,6 +248,7 @@ if (isset($_POST['luu'])) {
         echo '<script>alert(" Lỗi!!! ")</script>';
     }
 }
+
 ?>
 <?php
 if (isset($_GET['alert'])) { ?>

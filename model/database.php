@@ -185,30 +185,47 @@ mysqli_close($conn);
 if (isset($_POST["functionName"])) {
   if ($_POST["functionName"] == "check_coupon") {
     $code = $_POST["code"];
-    $result = check_coupon($code);
+    $makh = $_POST["makh"];
+    $result = check_coupon($code,$makh);
+    if($result['res'] == 'success'){
+      session_start();
+      $_SESSION['coupon'] = [
+        'maphieu' => $result['mapgg'],
+        'makh' => $result['makh'],
+      ];
+    }
     echo json_encode($result);
   }
 }
 function check_coupon($code,$makh){
   global $conn;
-  $sql="SELECT * FROM `phieugiamgia` WHERE `CodePhieu` = '$code'";
-  $resulf = mysqli_query($conn ,$sql);  
-  $count=mysqli_num_rows($resulf);        
-  if($count==0){
-    return $coupon=0;
+  if($makh){
+    $sql="SELECT * FROM `phieugiamgia` WHERE `CodePhieu` = '$code' AND ThoiHan >= '".date('Y-m-d')."'";
+    // return $sql;
+    $resulf = mysqli_query($conn ,$sql);          
+    if($resulf->num_rows == 0){
+      return ['res' => 'error', 'status' => 'Bạn hiện tại không có phiếu giảm giá này hoặc đã hết hạn sử dụng phiếu!', 'money' => 0];
+    }else{
+      // var_dump($resulf); die;
+      $coupon = mysqli_fetch_assoc($resulf);
+      $id = $coupon['MaPGG'];
+      $sqlCheck = "SELECT * FROM `khachhangphieugiamgia` WHERE `MaPGG` = $id AND `MaKH` = $makh";
+      $rsCheck = mysqli_query($conn,$sqlCheck);
+      // var_dump($rsCheck=); die;
+      if($rsCheck->num_rows != 0){
+        return ['res' => 'success', 'status' => 'Áp dụng mã thành công!', 'money' => number_format( $coupon['SoTien']), 'makh' => $makh, 'mapgg' => $id];
+      }else{
+        return ['res' => 'error', 'status' => 'Bạn hiện tại không có mã này!', 'money' => 0, 'makh' => $makh, 'maphieu' => $id];
+      }
+    }     
+    mysqli_close($conn);
   }else{
-    $coupon=mysqli_fetch_assoc($resulf);
-    $id = $coupon['MaPGG'];
-    $sqlCheck = "SELECT * FROM `khachhangphieugiamgia` WHERE `MaPGG` = '$id' AND `MaKH` = $makh";
-    $rsCheck = mysqli_query($conn,$sqlCheck);
-    $count1 = $rsCheck->num_rows;
-    return number_format( $coupon['SoTien']);
-  }     
-mysqli_close($conn);
+    return ['res' => 'warning', 'status' => 'Bạn cần phải đăng nhập mới áp dụng được mã khuyến mãi', 'money' => 0];
+  }
 }
 function get_coupon(){
   global $conn;
-  $sql="SELECT * FROM `phieugiamgia`";
+  $sql="SELECT * FROM `phieugiamgia` WHERE ThoiHan >= '".date('Y-m-d')."'";
   $resulf = mysqli_query($conn ,$sql);  
   $count=mysqli_num_rows($resulf);        
   if($count==0){
@@ -220,7 +237,8 @@ mysqli_close($conn);
 }
 function get_coupon_customer($mapgg,$makh){
   global $conn;
-  $sql="SELECT * FROM `khachhangphieugiamgia` WHERE `MaPGG` = '$mapgg' AND `MaKH` = '$makh'";
+  $sql="SELECT * FROM `khachhangphieugiamgia` WHERE `MaPGG` = $mapgg AND `MaKH` = $makh";
+  // return $sql;
   $resulf = mysqli_query($conn ,$sql);  
   $count=mysqli_num_rows($resulf);        
   if($count==0){
@@ -315,10 +333,22 @@ function product_category($id){
 // -------------------------------------------------------------------------------
 // ------------------------------------------ card MODEL----------------------
 // xử lý đặt hàng
-
-function order_product($nn,$dcnn,$sdtnn,$makh,$tt){
+function handleCoupon($makh,$maphieu){
   global $conn;
-  $sql="INSERT INTO `hoadon`(`MaKH`,  `TinhTrang`, `TongTien`) VALUES ($makh,N'chưa duyệt',$tt)";
+  $sqlHandle = "DELETE FROM `khachhangphieugiamgia` WHERE MaKH = $makh AND MaPGG = $maphieu";
+  $rsHandle = mysqli_query($conn, $sqlHandle);
+  $sqlUpdate = "UPDATE `phieugiamgia` SET `SoLuong`=(`SoLuong` - 1) WHERE MaPGG = $maphieu";
+  $rsUpdate = mysqli_query($conn, $sqlUpdate);
+  if($rsHandle && $rsUpdate){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+function order_product($nn,$dcnn,$sdtnn,$makh,$tt,$phuongthuc){
+  global $conn;
+  $sql="INSERT INTO `hoadon`(`MaKH`, `PhuongThucThanhToan`, `TinhTrang`, `TongTien`) VALUES ($makh,$phuongthuc,N'chưa duyệt',$tt)";
   $resulf = mysqli_query($conn ,$sql); 
   if($resulf){
     $sql2="select MaHD from hoadon where MaKH=$makh and TongTien=$tt ORDER BY MaHD DESC limit 1";
@@ -335,6 +365,15 @@ function order_product($nn,$dcnn,$sdtnn,$makh,$tt){
     }
     if($rs3){
       if($rs_sl){
+        $coupon = $_SESSION['coupon'];
+        if(isset($coupon)){
+          $makh = $coupon['makh'];
+          $maphieu = $coupon['maphieu'];
+          $handle = handleCoupon($makh,$maphieu);
+          if($handle){
+            unset($_SESSION['coupon']);
+          }
+        }
         $sql4="INSERT INTO `nguoinhan`(`MaHD`, `TenNN`, `DiaChiNN`, `SDTNN`) VALUES($mahd,'$nn','$dcnn',$sdtnn)";
         $rs4=mysqli_query($conn,$sql4);
         if($rs4){
@@ -390,15 +429,46 @@ function update_user($id,$ten,$sdt,$dc,$matkhau){
 function bill_user($id){
   global $conn;
   $sql="SELECT * FROM `hoadon` WHERE MaKH = $id ORDER BY NgayDat DESC";
+  // return $sql;
   $resulf=mysqli_query($conn,$sql);
   $count=mysqli_num_rows($resulf); 
   if($count==0){
-      return false;
-    }else{
-      return $resulf;
-    }     
+    return false;
+  }else{
+    return $resulf;
+  }     
   mysqli_close($conn);
 }
+
+function one_bill($id){
+  global $conn;
+  $sql="SELECT * FROM `hoadon` WHERE MaHD = $id ORDER BY NgayDat DESC";
+  // return $sql;
+  $resulf=mysqli_query($conn,$sql);
+  $count=mysqli_num_rows($resulf); 
+  if($count==0){
+    return false;
+  }else{
+    return mysqli_fetch_assoc($resulf);
+  }     
+  mysqli_close($conn);
+}
+
+
+function get_product($masp){
+  global $conn;
+  $sql="SELECT * FROM `sanpham` WHERE MaSP = $masp";
+  // return $sql;
+  $resulf=mysqli_query($conn,$sql);
+  $count=mysqli_num_rows($resulf); 
+  if($count==0){
+    return false;
+  }else{
+    return mysqli_fetch_assoc($resulf);
+  }     
+  mysqli_close($conn);
+}
+
 // -------------------------------------------------------------------------------
 // ------------------------------------------ admin  ----------------------
 // chi tiết hóa đơn
@@ -415,6 +485,57 @@ function bill_detail($id){
   mysqli_close($conn);
 }
 
+if(isset($_GET['take_bill'])){
+  $id = intval($_GET['id']);
+  $bill = one_bill($id);
+  $detail = bill_detail($id);
+  if($bill && $detail){
+    $arr = [];
+    while($row = mysqli_fetch_assoc($detail)){
+      $tensp = get_product($row['MaSP'])['TenSP'];
+      $arr[] = [
+        'id' => $row['MaHD'],
+        'name' => $tensp,
+        'price' => $row["DonGia"],
+        'quantity' => $row['SoLuong'],
+        'color' => $row['MaMau'],
+        'size' => $row['Size'],
+        'subtotal' => $row['ThanhTien']
+      ];
+    }
+    echo json_encode(['res' => 'success', 'bill' => $bill, 'detail' => $arr]);
+  }else{
+    echo json_encode(['res' => 'error', 'bill' => '', 'detail' => '']);
+  }
+}
+if(isset($_POST['cancel_bill'])){
+  $mahd = $_POST['mahd'];
+  $sql = "update hoadon set TinhTrang='Hủy Bỏ' where MaHD=$mahd";
+  $rs = mysqli_query($conn, $sql);
+  $isFalse = false;
+  if ($rs) {
+    $sql1 = "SELECT DISTINCT MaMau FROM `chitiethoadon` WHERE MaHD='$mahd'";
+    $rs1 = mysqli_query($conn, $sql1);
+    while ($r1 = mysqli_fetch_array($rs1)) {
+      $m = $r1['MaMau'];
+      $sql3 = "select *from chitiethoadon where MaHD='$mahd' and MaMau='$m'";
+      $rs3 = mysqli_query($conn, $sql3);
+      while ($r2 = mysqli_fetch_array($rs3)) {
+        $size = $r2['Size'];
+        $sql4 = "select *from chitiethoadon where MaHD='$mahd' and MaMau='$m' and Size='$size'";
+        $rs4 = mysqli_query($conn, $sql4);
+        while ($r3 = mysqli_fetch_array($rs4)) {
+          $sl = $r3['SoLuong'];
+          $masp = $r3['MaSP'];
+          $sql2 = "UPDATE `chitietsanpham` set `SoLuong`=(`SoLuong` + '$sl') where `MaSP`='$masp' and `MaSize`='$size' and `MaMau`='$m'";
+          $rs2 = mysqli_query($conn, $sql2);
+          $isFalse = true;
+        }
+      }
+    }
+  }
+  if($isFalse) echo json_encode(['res' => 'success']);
+}
 // -------------------------------------------------------------------------------
 // cart
 // update cart

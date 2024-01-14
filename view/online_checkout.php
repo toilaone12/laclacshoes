@@ -5,7 +5,7 @@ require 'webroot/PHPMailer/src/SMTP.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-    function sendMail($nn,$dcnn,$sdtnn,$makh,$tt,$email){
+    function sendMail($nn,$dcnn,$sdtnn,$makh,$tt,$email,$phuongthuc){
         $table='';
         foreach($_SESSION['cart_product'] as $item_cart) { $product=mysqli_fetch_array(product($item_cart['MaSP'])); 
             $number = str_replace(',', '', $item_cart['DonGia']);  $dongia=number_format($number*$item_cart['SoLuong']);
@@ -55,7 +55,7 @@ use PHPMailer\PHPMailer\Exception;
             <p>Tổng cộng: '. number_format($tt).' đ</p>
             </body>
             </html>';
-        $order=order_product($nn,$dcnn,$sdtnn,$makh,$tt);
+        $order=order_product($nn,$dcnn,$sdtnn,$makh,$tt,$phuongthuc);
         if($order){
             $mail = new PHPMailer(true);
             $mail->isSMTP();                                            // sử dụng SMTP
@@ -85,7 +85,8 @@ use PHPMailer\PHPMailer\Exception;
     $makh=$_SESSION['nguoi_nhan']['maKH'];
     $tt=$_SESSION['nguoi_nhan']['tongtien'];
     $email=$_SESSION['nguoi_nhan']['email'];
-    $order=sendMail($nn,$dcnn,$sdtnn,$makh,$tt,$email);
+    $phuongthuc = $_GET['phuongthuc'];
+    $order=sendMail($nn,$dcnn,$sdtnn,$makh,$tt,$email,$phuongthuc);
     // var_dump($order); die;
     if($order) header('Location: ?view=order-complete');
 ?>

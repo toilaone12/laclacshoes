@@ -107,6 +107,11 @@
 
       }
     })
+    $('.open-modal-gift').on('click',function(e){
+      e.preventDefault();
+      let id = $(this).attr('data-id');
+      $('#mapgg').val(id);
+    })
   });
 </script>
 

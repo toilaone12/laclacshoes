@@ -163,6 +163,11 @@
           <span>Khuyến Mãi</span></a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="?action=phieugiamgia">
+          <i class="fas fa-atom"></i>
+          <span>Phiếu giảm giá</span></a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="?action=danhthu">
           <i class="fas fa-atom"></i>
           <span>Doanh Thu</span></a>

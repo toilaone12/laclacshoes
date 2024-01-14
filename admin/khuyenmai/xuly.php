@@ -54,14 +54,11 @@ include_once('../../model/database.php');
 	if(isset($_GET['apply2'])){
 		$makm=$_GET['makm'];
 		$masp=$_GET['masp'];
-		
-			$sql="INSERT INTO `sanphamkhuyenmai`(`MaSP`, `MaKM`) VALUES ('$masp','$makm')";
-			$rs=mysqli_query($conn,$sql);
-			if(isset($rs)){
-				header('location:../index.php?action=khuyenmai&thongbao=them');
-			}
-		
-		
+		$sql="INSERT INTO `sanphamkhuyenmai`(`MaSP`, `MaKM`) VALUES ('$masp','$makm')";
+		$rs=mysqli_query($conn,$sql);
+		if(isset($rs)){
+			header('location:../index.php?action=khuyenmai&thongbao=them');
+		}
 	}
 
 ?>

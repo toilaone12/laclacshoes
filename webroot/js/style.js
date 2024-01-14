@@ -1,54 +1,83 @@
 
-$(document).ready(function(){
-    var submit= $("button#tru");
-    submit.click(function(){
-        if($('input#soluong').val() >=2){
-            $('input#soluong').val(parseInt($('input#soluong').val())-1);
-        }else{
+$(document).ready(function () {
+    var submit = $("button#tru");
+    submit.click(function () {
+        if ($('input#soluong').val() >= 2) {
+            $('input#soluong').val(parseInt($('input#soluong').val()) - 1);
+        } else {
             $('input#soluong').val(parseInt($('input#soluong').val()));
-        } 
+        }
         return false;
     });
 });
-$(document).ready(function(){
-    var submit= $("button#cong");
-    submit.click(function(){
+$(document).ready(function () {
+    var submit = $("button#cong");
+    submit.click(function () {
 
-        if($('input#soluong').val() <=9){
-            $('input#soluong').val(parseInt($('input#soluong').val())+1);
-        }else{
+        if ($('input#soluong').val() <= 9) {
+            $('input#soluong').val(parseInt($('input#soluong').val()) + 1);
+        } else {
             $('input#soluong').val(parseInt($('input#soluong').val()));
-        } 
+        }
         return false;
     });
 });
 
-$(document).ready(function(){
-    var submit= $("input#Apply_Coupon");
-    submit.click(function(){
-        var code=$('input#Coupon').val();
-        $('span#coupon2').text('Đã áp dụng mã : ' + code);
-        var datas = {
+$(document).ready(function () {
+    var submit = $("input#Apply_Coupon");
+    submit.click(function () {
+        var code = $('input#Coupon').val();
+        let makh = $(this).attr('data-makh')
+        // $('span#coupon2').text('Đã áp dụng mã : ' + code);
+        var data = {
             functionName: 'check_coupon',
-            code: code
+            code: code,
+            makh: makh,
         };
         $.ajax({
             url: 'model/database.php',
             type: 'POST',
-            data: datas,
-            success: function(response) {
-              // Kết quả trả về từ hàm PHP
-                sotien = response.replace(/"/g, '');
-                $('span#coupon_apply').text(sotien);
-                var subtotal = $('span#subtotal').text().replace(/,/g, '');
-                var sotien1 = $('span#coupon_apply').text().replace(/,/g, '');
-                var total = (parseInt(subtotal) - parseInt(sotien1)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
-                $('span#total').text(total);
-                $('input#tongtien').val((parseInt(subtotal) - parseInt(sotien1)));
-                $('input#tiensale').val(parseInt(sotien1));
-               
+            data: data,
+            dataType: 'json',
+            success: function (response) {
+                // Kết quả trả về từ hàm PHP
+                if (response.res == 'success') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Thông báo phiếu giảm giá',
+                        text: response.status,
+                        confirmButtonText: 'Xác nhận',
+                    })
+                    sotien = response.money.replace(/"/g, '');
+                    $('span#coupon_apply').text(sotien);
+                    var subtotal = $('span#subtotal').text().replace(/,/g, '');
+                    var sotien1 = $('span#coupon_apply').text().replace(/,/g, '');
+                    var total = (parseInt(subtotal) - parseInt(sotien1)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+                    $('span#total').text(total);
+                    $('input#tongtien').val((parseInt(subtotal) - parseInt(sotien1)));
+                    $('input#tiensale').val(parseInt(sotien1));
+                } else if (response.res == 'warning') {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Thông báo phiếu giảm giá',
+                        confirmButtonText: 'Xác nhận',
+                        text: response.status,
+                    }).then((res) => {
+                        if (res.isConfirmed) {
+                            location.href = '?view=login';
+                        }
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Thông báo phiếu giảm giá',
+                        confirmButtonText: 'Xác nhận',
+                        text: response.status,
+                    })
+                }
+
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error(error); // Xử lý lỗi nếu có
             }
         });
@@ -56,90 +85,183 @@ $(document).ready(function(){
 });
 
 
-$(document).ready(function(){
+$(document).ready(function () {
     function formatNumberWithCommas(number) {
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
-    var submit= $("button#xemthem");
-    // console.log('ok');
-    submit.click(function(){
-        var datas=$('form#load_sp').serialize();
-        $.ajax({
-            type    :   'POST',
-            url     :   'model/database.php',
-            data    :   datas,
-            success :   function(data){
-                if(data == 'false'){
-                    alert('Lỗi thử lại sao');
-                }else{           
-                    $("#data_sp").html(data);
-                    
-                }
-            }
-        });
-        $('input#page').val(parseInt($('input#page').val())+1);
-        return false;
-    });
-    $(document).on('change', '.change-quantity', function(e){
-        // e.preventDefault();
-        let quantity = parseInt($(this).val());
-        let id = $(this).attr('data-id');
-        let idSize = $(this).attr('data-size');
-        let idColor = $(this).attr('data-color');
-        let size = $('.size-'+id+'-'+idSize+'-'+idColor).text();
-        let color = $('.color-'+id+'-'+idSize+'-'+idColor).text();
-        let price = parseInt($('#price-'+id+'-'+idSize+'-'+idColor).text().replace(/,/g, ''));
-        // let total = $('#total-'+id+'-'+idSize+'-'+idColor).text();
-        let feeDiscount = parseInt($('#coupon_apply').text().replace(/,/g, ''));
-        $.ajax({
-            type: 'POST',
-            url: 'model/database.php',
-            data:{
-                update_cart_product: 1,
-                id: id,
-                quantity: quantity,
-                size: size,
-                color: color,
-            },
-            dataType: 'json',
-            success: function(data){
-                console.log(data);
-                // console.log(parseInt(data.subtotal));
-                if(data.res == 'success'){
-                    let priceUpdate = formatNumberWithCommas(price * quantity);
-                    let subTotal = parseInt(data.subtotal);
-                    $('#total-'+id+'-'+idSize+'-'+idColor).text(priceUpdate);
-                    $('#subtotal').text(formatNumberWithCommas(subTotal));
-                    $('#total').text(formatNumberWithCommas(subTotal - feeDiscount));
-                }
-                // if(data == 'false'){
-                //     alert('Lỗi thử lại sao');
-                // }else{           
-                //     $("#data_sp").html(data);
-                    
-                // }
-            }
-        });
-    })
-    $(document).on('click', '.copy-discount', function(e){
-        var code = $(this).closest('.coupon').find('.code-discount').text().trim();
-        // console.log(code);
-        var blob = new Blob([code], { type: "text/plain" });
+    function htmlDetail(data) {
+        let html = '';
+        let listDetail = data.detail;
+        let bill = data.bill;
+        html += `<table class="table align-middle mb-0 bg-white table-responsive">`;
+        html += `<thead class="bg-light">`;
+        html += `<tr>`;
+        html += `<th class="fw-bold">Tên sản phẩm</th>`;
+        html += `<th class="fw-bold">Kích cỡ</th>`;
+        html += `<th class="fw-bold">Màu sắc</th>`;
+        html += `<th class="fw-bold">Giá</th>`;
+        html += `<th class="fw-bold">Phương thức thanh toán</th>`;
+        html += `<th class="fw-bold">Tổng cộng</th>`;
+        html += `<th class="fw-bold">Tình trạng đơn hàng</th>`;
+        html += `<th class="fw-bold">Ngày đặt</th>`;
+        html += `<th class="fw-bold">Ngày giao</th>`;
+        html += `</tr>`;
+        html += `</thead>`;
+        html += `<tbody>`;
+        html += `<tr>`;
+        html += `<td class="align-middle">`;
+        listDetail.forEach((detail) => {
+            html += `<div class="d-flex align-items-center">`;
+            html += `<div class="ms-2">`;
+            html += `<p class="mb-1">${detail.name} x ${detail.quantity}</p>`;
+            html += `</div>`;
+            html += `</div>`;
+        })
+        html += `</td>`;
+        html += `<td class="align-middle">`;
+        listDetail.forEach((detail) => {
+            html += `<p class="mb-1">${detail.size}</p>`;
+        })
+        html += `</td>`;
+        html += `<td class="align-middle">`;
+        listDetail.forEach((detail) => {
+            html += `<p class="mb-1">${detail.color}</p>`;
+        })
+        html += `</td>`;
+        html += `<td class="align-middle">`;
+        listDetail.forEach((detail) => {
+            html += `<p class=" mb-1">${detail.subtotal}</p>`;
+        })
+        html += `</td>`;    
+        html += `<td class="align-middle">${bill.PhuongThucThanhToan == 1 ? 'Thanh toán khi nhận hàng' : (bill.PhuongThucThanhToan == 2 ? 'Thanh toán bằng MoMo' : 'Thanh toán bằng VNPAY')}</td>`;
+        html += `<td class="align-middle">${bill.TongTien}</td>`;
+        html += `<td class="align-middle"><span class="badge ${bill.TinhTrang.toLowerCase() == 'hoàn thành' ? 'badge-success' : (bill.TinhTrang.toLowerCase() == 'hủy bỏ' ? 'badge-danger' : 'badge-warning')} px-3 py-2 fs-13 rounded-pill text-white d-inline">${bill.TinhTrang.charAt(0).toUpperCase() + bill.TinhTrang.slice(1)}</span></td>`;
+        html += `<td width="150" class="align-middle">${bill.NgayDat}</td>`;
+        html += `<td width="150" class="align-middle">${bill.NgayGiao ? bill.NgayGiao : 'Không có'}</td>`;
+        html += `</tr>`;
+        html += `</tbody>`;
+        html += `</table>`;
+        return html;
+    }
 
-        // Tạo một thực thể ClipboardItem từ blob
-        var clipboardItem = new ClipboardItem({ "text/plain": blob });
+    var submit = $("button#xemthem");
+        // console.log('ok');
+        submit.click(function () {
+            var datas = $('form#load_sp').serialize();
+            $.ajax({
+                type: 'POST',
+                url: 'model/database.php',
+                data: datas,
+                success: function (data) {
+                    if (data == 'false') {
+                        alert('Lỗi thử lại sao');
+                    } else {
+                        $("#data_sp").html(data);
 
-        // Sao chép clipboardItem vào clipboard
-        navigator.clipboard.write([clipboardItem])
-            .then(function() {
-                alert("Đã sao chép vào clipboard");
-            })
-            .catch(function(error) {
-                console.error("Lỗi khi sao chép vào clipboard: " + error);
+                    }
+                }
             });
-    })
-});
+            $('input#page').val(parseInt($('input#page').val()) + 1);
+            return false;
+        });
+        $(document).on('change', '.change-quantity', function (e) {
+            // e.preventDefault();
+            let quantity = parseInt($(this).val());
+            let id = $(this).attr('data-id');
+            let idSize = $(this).attr('data-size');
+            let idColor = $(this).attr('data-color');
+            let size = $('.size-' + id + '-' + idSize + '-' + idColor).text();
+            let color = $('.color-' + id + '-' + idSize + '-' + idColor).text();
+            let price = parseInt($('#price-' + id + '-' + idSize + '-' + idColor).text().replace(/,/g, ''));
+            // let total = $('#total-'+id+'-'+idSize+'-'+idColor).text();
+            let feeDiscount = parseInt($('#coupon_apply').text().replace(/,/g, ''));
+            $.ajax({
+                type: 'POST',
+                url: 'model/database.php',
+                data: {
+                    update_cart_product: 1,
+                    id: id,
+                    quantity: quantity,
+                    size: size,
+                    color: color,
+                },
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    // console.log(parseInt(data.subtotal));
+                    if (data.res == 'success') {
+                        let priceUpdate = formatNumberWithCommas(price * quantity);
+                        let subTotal = parseInt(data.subtotal);
+                        $('#total-' + id + '-' + idSize + '-' + idColor).text(priceUpdate);
+                        $('#subtotal').text(formatNumberWithCommas(subTotal));
+                        $('#total').text(formatNumberWithCommas(subTotal - feeDiscount));
+                    }
+                }
+            });
+        })
+        $(document).on('click', '.copy-discount', function (e) {
+            var code = $(this).closest('.coupon').find('.code-discount').text().trim();
+            // console.log(code);
+            var blob = new Blob([code], { type: "text/plain" });
+
+            // Tạo một thực thể ClipboardItem từ blob
+            var clipboardItem = new ClipboardItem({ "text/plain": blob });
+
+            // Sao chép clipboardItem vào clipboard
+            navigator.clipboard.write([clipboardItem])
+                .then(function () {
+                    alert("Đã sao chép vào clipboard");
+                })
+                .catch(function (error) {
+                    console.error("Lỗi khi sao chép vào clipboard: " + error);
+                });
+        })
+        $('.open-modal-detail').on('click', function (e) {
+            let id = $(this).attr('data-id');
+            let tinhtrang = $(this).closest('tr').find('.tinhtrang').attr('data-status');
+            let buttonCancel = `<button type="button" class="btn text-capitalize rounded-0 fs-13 btn-outline-danger" data-dismiss="modal">Đóng</button>`;
+            if(tinhtrang == 2 || tinhtrang == 3){
+            }else{
+                buttonCancel += `<button type="submit" class="btn text-capitalize rounded-0 fs-13 border-danger btn-outline-danger">Hủy đơn hàng</button>`
+            }
+            $('.type-button').html(buttonCancel);
+            $('#cancelBill').attr('data-id',id);    
+            $.ajax({
+                type: 'GET',
+                url: 'model/database.php',
+                data: {
+                    take_bill: 1,
+                    id: id,
+                },
+                dataType: 'json',
+                success: function (data) {
+                    let html = htmlDetail(data);
+                    $('.list-detail').html(html);
+                    // console.log(html);
+                }
+            });
+        })
+        $('#cancelBill').on('submit', function(e){
+            e.preventDefault();
+            let id = $(this).attr('data-id');
+            $.ajax({
+                type: 'POST',
+                url: 'model/database.php',
+                data: {
+                    cancel_bill: 1,
+                    mahd: id,
+                },
+                dataType: 'json',
+                success: function (data) {
+                    // let html = htmlDetail(data);
+                    // $('.list-detail').html(html);
+                    console.log(data);
+                    if(data.res == 'success') alert('Hủy đơn hàng thành công'); location.reload();
+                }
+            });
+        })
+    });
 
 
 function togglePasswordVisibility() {
