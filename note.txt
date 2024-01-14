@@ -23,6 +23,7 @@
 + Ngày phát hành: 07/15
 + Mật khẩu OTP: 123456
 (Cần check lại thì vào url này: https://sandbox.vnpayment.vn/apis/vnpay-demo/)
+- Đã chỉnh sửa giao diện bên người dùng thêm phiếu giảm giá, sửa lại bên lịch sử đơn hàng, có thể xem chi tiết, có thể hủy đơn với tình trạng chưa duyệt và đã duyệt
 2. Giao diện quản trị
 * Lỗi: 
 - Đơn hàng + Đơn đặt hàng: 
@@ -42,3 +43,4 @@
 * Lưu ý
 + Về cơ chế của kho thì nhập xuất không hợp lý lắm nhưng do có lẽ đã đồ án đã theo logic đó thì k nên thay đổi và nếu thay sẽ mất thời gian
 => Vậy nên khi trình bày thì hạn chế trình bày chức năng này
++ Đã tích hợp thêm thêm sửa xóa tặng phiếu giảm giá cho khách hàng (có thể tặng nhiều ng)

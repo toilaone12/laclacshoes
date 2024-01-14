@@ -38,7 +38,7 @@ $listDiscount = get_coupon();
                             </li>
                         </ul>
                         <div class="tab-content" id="pills-tabContent">
-                            <div class="tab-pane border" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
+                            <div class="tab-pane border fade show active" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
                                 <form class="form-horizontal" action="" method="post" id="login_form">
                                     <fieldset>
                                         <div class="form-group">
@@ -79,7 +79,7 @@ $listDiscount = get_coupon();
                                     </fieldset>
                                 </form>
                             </div>
-                            <div class="tab-pane fade show active" id="pills-review" role="tabpanel" aria-labelledby="pills-review-tab">
+                            <div class="tab-pane" id="pills-review" role="tabpanel" aria-labelledby="pills-review-tab">
                                 <table class="table align-middle mb-0 bg-white">
                                     <thead class="bg-light">
                                         <tr>
