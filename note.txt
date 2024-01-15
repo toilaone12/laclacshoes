@@ -11,8 +11,10 @@
 - Thanh toán online
 + Tích hợp thêm thanh toán VNPAY (đã fix)
 + Gửi email cho thanh toán Momo (đã fix)
-- Tìm kiếm
-+ Đã sửa lại lỗi tìm kiếm không ra thông tin
+- Tìm kiếm 
++ Đã fix lỗi trường hợp k tìm thấy sản phẩm
+- Đánh giá
++ Đã thêm đánh giá số sao, hiển thị số sao khi đánh giá và số bình luận về sản phẩm
 * Lưu ý:
 - Momo: Hạn mức giao dịch dưới 50tr (tốt nhất khoảng 30tr thôi);
 - VNPAY: Hạn mức giao dịch dưới 200tr (tốt nhất khoảng 150tr thôi);
@@ -40,6 +42,8 @@
 - Sản phẩm, Khuyến mãi, Nhân viên
 + Sửa lại giao diện thêm sửa xóa
 + Sửa thông báo chức năng Xóa
+- Nhà cung cấp
++ Đã design và làm backend cho chức năng này
 * Lưu ý
 + Về cơ chế của kho thì nhập xuất không hợp lý lắm nhưng do có lẽ đã đồ án đã theo logic đó thì k nên thay đổi và nếu thay sẽ mất thời gian
 => Vậy nên khi trình bày thì hạn chế trình bày chức năng này
