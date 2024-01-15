@@ -67,7 +67,8 @@
       ?>
       <li class="nav-item">
         <a class="nav-link" href="?action=xldathang">
-          <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+          <!-- <i class="mdi mdi-format-list-bulleted menu-icon"></i> -->
+          <i class="fa-solid fa-file-invoice"></i>
           <span>Đơn Đặt Hàng <sup style="border-radius: 50%; right: 10px; top: -0.7em;" class="badge-danger text-center px-2 py-1"><?php echo $dem ?></sup></span></a>
       </li>
       <!-- Nav Item - Charts -->
@@ -78,15 +79,15 @@
       ?>
       <li class="nav-item">
         <a class="nav-link" href="?action=giaohang">
-          <i class="mdi mdi-car"></i>
+          <!-- <i class="mdi mdi-car"></i> -->
+          <i class="fa-solid fa-truck-fast"></i>
           <span>Giao Hàng <sup style="border-radius: 50%; right: 10px; top: -0.7em;" class="badge-danger text-center px-2 py-1"><?php echo $dem ?></sup></span></a>
-
-
       </li>
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="mdi mdi-dns"></i>
+          <!-- <i class="mdi mdi-dns"></i> -->
+          <i class="fa-solid fa-warehouse"></i>
           <span>Kho Hàng</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -100,23 +101,6 @@
         </div>
       </li>
 
-      <!-- Nav Item - Utilities Collapse Menu -->
-      <!-- <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Utilities</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Utilities:</h6>
-            <a class="collapse-item" href="utilities-color.html">Colors</a>
-            <a class="collapse-item" href="utilities-border.html">Borders</a>
-            <a class="collapse-item" href="utilities-animation.html">Animations</a>
-            <a class="collapse-item" href="utilities-other.html">Other</a>
-          </div>
-        </div>
-      </li> -->
-
       <!-- Divider -->
       <hr class="sidebar-divider">
 
@@ -128,24 +112,34 @@
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa-fw fa-folder"></i>
+          <!-- <i class="fas fa-fw fa-folder"></i> -->
+          <i class="fa-solid fa-list"></i>
           <span>Danh Mục</span>
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="?action=danhmuc&">Danh sách</a>
+            <a class="collapse-item" href="?action=danhmuc">Danh sách</a>
             <a class="collapse-item" href="?action=danhmuc&view=them">Thêm</a>
-            <!-- <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-           <div class="collapse-divider"></div>
-           <h6 class="collapse-header">Other Pages:</h6>
-           <a class="collapse-item" href="404.html">404 Page</a>
-           <a class="collapse-item" href="blank.html">Blank Page</a> -->
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collaspeSupplier" aria-expanded="true" aria-controls="collaspeSupplier">
+          <!-- <i class="fas fa-fw fa-folder"></i> -->
+          <i class="fa-solid fa-parachute-box"></i>
+          <span>Nhà cung cấp</span>
+        </a>
+        <div id="collaspeSupplier" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="?action=nhacc">Danh sách</a>
+            <a class="collapse-item" href="?action=nhacc&view=them">Thêm</a>
           </div>
         </div>
       </li>
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages1" aria-expanded="true" aria-controls="collapsePages1">
-          <i class="fas fa-fw fa-table"></i>
+          <!-- <i class="fas fa-fw fa-table"></i> -->
+          <i class="fa-solid fa-shoe-prints"></i>
           <span>Sản Phẩm</span>
         </a>
         <div id="collapsePages1" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
@@ -159,22 +153,26 @@
 
       <li class="nav-item">
         <a class="nav-link" href="?action=khuyenmai">
-          <i class="fas fa-atom"></i>
+          <!-- <i class="fas fa-atom"></i> -->
+          <i class="fa-solid fa-percent"></i>
           <span>Khuyến Mãi</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="?action=phieugiamgia">
-          <i class="fas fa-atom"></i>
+          <!-- <i class="fas fa-atom"></i> -->
+          <i class="fa-solid fa-ticket"></i>
           <span>Phiếu giảm giá</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="?action=danhthu">
-          <i class="fas fa-atom"></i>
+          <!-- <i class="fas fa-atom"></i> -->
+          <i class="fa-solid fa-chart-simple"></i>
           <span>Doanh Thu</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="?action=nhanvien">
-          <i class="fas fa-atom"></i>
+          <!-- <i class="fas fa-atom"></i> -->
+          <i class="fa-solid fa-person"></i>
           <span>Quản lý nhân viên</span></a>
       </li>
       <hr class="sidebar-divider d-none d-md-block">

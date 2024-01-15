@@ -13,6 +13,14 @@ if (isset($_GET['action'])) {
             }
 
             break;
+        case 'nhacc':
+            if ($check['Quyen'] > 2) {
+                echo ('<center> BẠN KHÔNG CÓ QUYỀN TRUY CẬP</center>');
+            } else {
+                include('nhacungcap/danhsach.php');
+            }
+
+            break;
         case 'sanpham':
             if ($check['Quyen'] > 2) {
                 echo ('<center> BẠN KHÔNG CÓ QUYỀN TRUY CẬP</center>');

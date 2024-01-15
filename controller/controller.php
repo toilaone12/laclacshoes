@@ -77,7 +77,8 @@ if(isset($_GET['view'])){
                     print_r($_SESSION['laclac_khachang']) ;
                     $nd=$_POST['noidung'];
                     $masp=$_POST['masp'];
-                    $addtoreview=product_addtoreview($masp,$kh['MaKH'],$nd);   
+                    $sosao=$_POST['sosao'];
+                    $addtoreview=product_addtoreview($masp,$kh['MaKH'],$sosao,$nd);   
                     if ($addtoreview) {
                         header('location:?view=product-detail&id='.$masp);
                     }               

@@ -263,9 +263,9 @@ function product_review($id){
 
 }
 // thêm bình luận product
-function product_addtoreview($masp,$id,$nd){
+function product_addtoreview($masp,$id,$sosao,$nd){
   global $conn;
-  $sql="INSERT INTO `binhluan`( `MaSP`, `MaKH`, `NoiDung`) VALUES('$masp',".$id.",'$nd')";
+  $sql="INSERT INTO `binhluan`( `MaSP`, `MaKH`, `SoSao`, `NoiDung`) VALUES('$masp',".$id.",'$sosao','$nd')";
   $resulf = mysqli_query($conn ,$sql);  
   if($resulf){
       return true;

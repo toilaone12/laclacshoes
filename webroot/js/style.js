@@ -165,6 +165,7 @@ $(document).ready(function () {
             $('input#page').val(parseInt($('input#page').val()) + 1);
             return false;
         });
+        //thay doi so luong
         $(document).on('change', '.change-quantity', function (e) {
             // e.preventDefault();
             let quantity = parseInt($(this).val());
@@ -200,6 +201,7 @@ $(document).ready(function () {
                 }
             });
         })
+        //sao chep ma code giam gia
         $(document).on('click', '.copy-discount', function (e) {
             var code = $(this).closest('.coupon').find('.code-discount').text().trim();
             // console.log(code);
@@ -217,6 +219,7 @@ $(document).ready(function () {
                     console.error("Lỗi khi sao chép vào clipboard: " + error);
                 });
         })
+        //xem chi tiet don hang da mua
         $('.open-modal-detail').on('click', function (e) {
             let id = $(this).attr('data-id');
             let tinhtrang = $(this).closest('tr').find('.tinhtrang').attr('data-status');
@@ -242,6 +245,7 @@ $(document).ready(function () {
                 }
             });
         })
+        //huy don hang
         $('#cancelBill').on('submit', function(e){
             e.preventDefault();
             let id = $(this).attr('data-id');
@@ -261,6 +265,58 @@ $(document).ready(function () {
                 }
             });
         })
+        //danh gia sao
+        var stars = $('.choose-star');
+        var rating = $('.star').data('rating');
+
+        // Thiết lập màu sao khi trang web tải lên
+        // setStarsColor();
+
+        // stars.hover(function(){
+        //     // Hover vào sao
+        //     var value = $(this).data('value');
+        //     highlightStars(value);
+        //     $('.star').attr('data-rating',value)
+        //     // console.log('in',value);
+        // }, function(){
+        //     var value = $(this).data('value');
+        //     // Hover ra khỏi sao
+        //     outHighlightStars(value);
+        //     $('.star').attr('data-rating',value)
+        //     console.log('out',value);
+        // });
+
+        stars.click(function(){
+            // Click để chọn số sao
+            var value = $(this).data('value');
+            $('#rating').val(value)
+            // console.log(1);
+            for(var i = 1; i <= value; i++){
+                $('.choose-star[data-value="' + i + '"]').addClass('text-warning').removeClass('text-secondary');
+            }
+            for(var i = value + 1; i <= 5; i++){
+                $('.choose-star[data-value="' + i + '"]').addClass('text-secondary').removeClass('text-warning');
+            }
+            // rating = value;
+            // setStarsColor(rating);
+        });
+
+        // function highlightStars(num){
+        //     // stars.removeClass('active');
+        //     for(var i = 1; i <= num; i++){
+        //         $('.choose-star[data-value="' + i + '"]').addClass('text-warning').removeClass('text-secondary');
+        //     }
+        // }
+
+        // function outHighlightStars(num){
+        //     for(var i = num + 1; i <= 5; i++){
+        //         $('.choose-star[data-value="' + i + '"]').addClass('text-secondary').removeClass('text-warning');
+        //     }
+        // }
+
+        // function setStarsColor(rating){
+        //     highlightStars(rating);
+        // }
     });
 
 
