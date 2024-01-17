@@ -78,13 +78,17 @@ if(isset($_GET['view'])){
                     $nd=$_POST['noidung'];
                     $masp=$_POST['masp'];
                     $sosao=$_POST['sosao'];
-                    $addtoreview=product_addtoreview($masp,$kh['MaKH'],$sosao,$nd);   
-                    if ($addtoreview) {
-                        header('location:?view=product-detail&id='.$masp);
-                    }               
+                    if($nd && $nd){
+                        $addtoreview=product_addtoreview($masp,$kh['MaKH'],$sosao,$nd);   
+                        if ($addtoreview) {
+                            header('location:?view=product-detail&id='.$masp);
+                        }               
+                    }else{
+                        header('location:?view=product-detail&id='.$masp.'&alert=Bạn cần phải điền đủ bao gồm số sao và nội dung đánh giá');
+                    }
                 }else{
-                        header('Location:view/login.php');   
-                        break;
+                    header('Location:view/login.php');   
+                    break;
                 }                 
 
             case 'timkiem':

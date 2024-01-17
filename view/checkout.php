@@ -89,7 +89,7 @@ if (isset($_SESSION['laclac_khachang'])==false) {
                                         <span><?php echo number_format($_POST['tiensale']).' đ'; ?></span>
                                     </li>
                                     <li><span class="orderTotal">Tổng cộng</span> <span
-                                            class="orderTotal"><?php echo number_format($_POST['tongtien']).' đ'; ?></span>
+                                            class="orderTotal"><?php echo $_POST['tongtien'].' đ'; ?></span>
                                     </li>
                                 </ul>
                             </div>

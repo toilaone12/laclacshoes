@@ -132,9 +132,9 @@
                                 
                                 <form action="?view=thanhtoan2" method="post" class="mt-5 mb-0">
                                     <input type="hidden" name="sl"  value="<?php echo $dem; ?>">
-                                    <input type="hidden" name="tamtinh"  value="<?php  if(isset($_SESSION['cart_product'])){ echo number_format($subtotal);}else echo '0'; ?>">
+                                    <input type="hidden" name="tamtinh" value="<?php  if(isset($_SESSION['cart_product'])){ echo number_format($subtotal);}else echo '0'; ?>">
                                     <input type="hidden" name="tiensale" id="tiensale" value="0">
-                                    <input type="hidden" name="tongtien" id="tongtien" value="<?php echo $subtotal; ?>">
+                                    <input type="hidden" name="tongtien" id="tongtien" value="<?php echo number_format($subtotal); ?>">
                                     <button type="submit" class=" btn btn-outline-success" name="thanhtoan" value="2" data-mdb-ripple-color="dark">Thanh toán</button>
                                 </form>
                             </div>

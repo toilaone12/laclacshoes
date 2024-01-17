@@ -197,6 +197,8 @@ $(document).ready(function () {
                         $('#total-' + id + '-' + idSize + '-' + idColor).text(priceUpdate);
                         $('#subtotal').text(formatNumberWithCommas(subTotal));
                         $('#total').text(formatNumberWithCommas(subTotal - feeDiscount));
+                        $('input[name="tamtinh"]').val(formatNumberWithCommas(subTotal));
+                        $('input[name="tongtien"]').val(formatNumberWithCommas(subTotal - feeDiscount));
                     }
                 }
             });
