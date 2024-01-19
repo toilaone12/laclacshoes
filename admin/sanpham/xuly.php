@@ -1,4 +1,3 @@
-
 <?php
 include_once('../../model/database.php');
 	// Thêm Sản Phẩm
@@ -33,7 +32,8 @@ include_once('../../model/database.php');
 									$sql_ctsp="insert into chitietsanpham(MaSP,MaSize,MaMau) values('$so','$values1','$values')";
 									$rs_ctsp=mysqli_query($conn, $sql_ctsp);
 								 }
-							}$dem=1;
+							}
+							$dem=1;
 							$sql_addanhsp="INSERT INTO `anhsp`(`MaSP`) VALUES ('$so') ";
 							mysqli_query($conn,$sql_addanhsp);
 							foreach($_FILES['anhsp']['name'] as $key=>$value) {
@@ -104,16 +104,17 @@ if(isset($_POST['xlsua'])){
 									$rs_anhcu=mysqli_query($conn, $sql_anhcu);
 									$row_anhcu=mysqli_fetch_array($rs_anhcu);
 									$file='../../webroot/image/sanpham/'.$row_anhcu['Anh'.$dem];
-									if(unlink($file)){
+									if($row_anhcu['Anh'.$dem] != NULL){
+										unlink($file);
+									}
+									// if(unlink($file)){
 										$anhsp=$_FILES['anhsp']['name'][$key];
 										$anh_tmp=$_FILES['anhsp']['tmp_name'][$key];
 										$rs_anhsp = move_uploaded_file($anh_tmp,'../../webroot/image/sanpham/'.$anhsp);
 										$sql_upanhsp="UPDATE `anhsp` SET `Anh$dem` = '$anhsp' where `MaSP` = '$so' ";
 										mysqli_query($conn,$sql_upanhsp);
 										$dem++;
-									};	
-						 			
-									
+									// };	
 								}
 								header('location:../index.php?action=sanpham&view=themsp&thongbao=Sửa thành công');
 							}
@@ -161,4 +162,4 @@ if(isset($_GET['xoa'])){
 		//-----------------------------------------------------------------------------------------	
 		// Thêm màu 
 		
-		 ?>		
+		 ?>

@@ -99,6 +99,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 function sendMail($nn,$dcnn,$sdtnn,$makh,$tt,$email){
+    // $tt = 
     $table='';
     foreach($_SESSION['cart_product'] as $item_cart) { $product=mysqli_fetch_array(product($item_cart['MaSP'])); 
         $number = str_replace(',', '', $item_cart['DonGia']);  $dongia=number_format($number*$item_cart['SoLuong']);
@@ -183,6 +184,7 @@ if (isset($_POST['cod'])) {
     $kh = $_SESSION['laclac_khachang'];
     $makh = $kh['MaKH'];
     $tt = $_POST['tongtien'];
+    $tt = str_replace(',', '', $tt);
     $send = sendMail($nn, $dcnn, $sdtnn, $makh, $tt, $email);
     // var_dump($send); die;
 } else if (isset($_POST['momo'])) {
@@ -217,7 +219,7 @@ if (isset($_POST['cod'])) {
         'address' => $_POST['address'],
         'phone' => $_POST['phone'],
         'maKH' => $kh['MaKH'],
-        'tongtien' => $_POST['tongtien']
+        'tongtien' => str_replace(',', '', $_POST['tongtien'])
     ];
     $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
     $partnerCode = 'MOMOBKUN20180529';
@@ -225,7 +227,7 @@ if (isset($_POST['cod'])) {
     $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
 
     $orderInfo = "Thanh toán qua MoMo";
-    $amount = $_POST['tongtien'];
+    $amount = str_replace(',', '', $_POST['tongtien']);
     $orderId = time() . "";
     $redirectUrl = "http://localhost/laclacshoes/?view=online&phuongthuc=2";
     $ipnUrl = "http://localhost/laclacshoes/?view=online";
@@ -268,73 +270,74 @@ if (isset($_POST['cod'])) {
         'address' => $_POST['address'],
         'phone' => $_POST['phone'],
         'maKH' => $kh['MaKH'],
-        'tongtien' => $_POST['tongtien']
+        'tongtien' => str_replace(',', '', $_POST['tongtien'])
     ];
-    $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    $vnp_Returnurl = "http://localhost/laclacshoes/?view=online&phuongthuc=3";
-    $vnp_TmnCode = "24J0WB02"; //Mã website tại VNPAY 
-    $vnp_HashSecret = "DIWYMSPOCNFUWHBRGHFRYKWEDPKOSPXK"; //Chuỗi bí mật
+    error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 
-    $vnp_TxnRef = rand(0000,9999); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
-    $vnp_OrderInfo = 'Thanh toán bằng VNPAY';
-    $vnp_OrderType = 'billpayment';
-    $vnp_Amount = 1000 * 100;
-    $vnp_Locale = 'vn';
-    $vnp_BankCode = 'NCB';
-    $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
-    //Add Params of 2.0.1 Version
-    $inputData = array(
-        "vnp_Version" => "2.1.0",
-        "vnp_TmnCode" => $vnp_TmnCode,
-        "vnp_Amount" => $vnp_Amount,
-        "vnp_Command" => "pay",
-        "vnp_CreateDate" => date('YmdHis'),
-        "vnp_CurrCode" => "VND",
-        "vnp_IpAddr" => $vnp_IpAddr,
-        "vnp_Locale" => $vnp_Locale,
-        "vnp_OrderInfo" => $vnp_OrderInfo,
-        "vnp_OrderType" => $vnp_OrderType,
-        "vnp_ReturnUrl" => $vnp_Returnurl,
-        "vnp_TxnRef" => $vnp_TxnRef,
-    );
+$vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+$vnp_Returnurl = "http://localhost/laclacshoes/?view=online&phuongthuc=2";
+$vnp_TmnCode = "R6N0Y9IM";//Mã website tại VNPAY 
+$vnp_HashSecret = "HLQMOWVZGIEUPXYUYFKLCNRDREEJBTSJ"; //Chuỗi bí mật
 
-    if (isset($vnp_BankCode) && $vnp_BankCode != "") {
-        $inputData['vnp_BankCode'] = $vnp_BankCode;
-    }
-    if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
-        $inputData['vnp_Bill_State'] = $vnp_Bill_State;
-    }
+$vnp_TxnRef = rand(000,999); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+$vnp_OrderInfo = 'Thanh toán hóa đơn khách hàng '.$_POST['fname'];
+$vnp_OrderType = 'billpayment';
+$vnp_Amount = str_replace(',', '', $_POST['tongtien']) * 100;
+$vnp_Locale = 'vn';
+$vnp_BankCode = 'NCB';
+$vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
+$inputData = array(
+    "vnp_Version" => "2.1.0",
+    "vnp_TmnCode" => $vnp_TmnCode,
+    "vnp_Amount" => $vnp_Amount,
+    "vnp_Command" => "pay",
+    "vnp_CreateDate" => date('YmdHis'),
+    "vnp_CurrCode" => "VND",
+    "vnp_IpAddr" => $vnp_IpAddr,
+    "vnp_Locale" => $vnp_Locale,
+    "vnp_OrderInfo" => $vnp_OrderInfo,
+    "vnp_OrderType" => $vnp_OrderType,
+    "vnp_ReturnUrl" => $vnp_Returnurl,
+    "vnp_TxnRef" => $vnp_TxnRef,
+);
 
-    //var_dump($inputData);
-    ksort($inputData);
-    $query = "";
-    $i = 0;
-    $hashdata = "";
-    foreach ($inputData as $key => $value) {
-        if ($i == 1) {
-            $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
-        } else {
-            $hashdata .= urlencode($key) . "=" . urlencode($value);
-            $i = 1;
-        }
-        $query .= urlencode($key) . "=" . urlencode($value) . '&';
-    }
+if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+    $inputData['vnp_BankCode'] = $vnp_BankCode;
+}
+// if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
+//     $inputData['vnp_Bill_State'] = $vnp_Bill_State;
+// }
 
-    $vnp_Url = $vnp_Url . "?" . $query;
-    if (isset($vnp_HashSecret)) {
-        $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret); //  
-        $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
+//var_dump($inputData);
+ksort($inputData);
+$query = "";
+$i = 0;
+$hashdata = "";
+foreach ($inputData as $key => $value) {
+    if ($i == 1) {
+        $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
+    } else {
+        $hashdata .= urlencode($key) . "=" . urlencode($value);
+        $i = 1;
     }
-    $returnData = array(
-        'code' => '00', 'message' => 'success', 'data' => $vnp_Url
-    );
-    // var_dump($vnp_Url); die;
-    header('Location: ' . $vnp_Url);
-    die();
-    // if (isset($_POST['vnpay'])) {
-    // } else {
-    //     echo json_encode($returnData);
-    // }
+    $query .= urlencode($key) . "=" . urlencode($value) . '&';
+}
+
+$vnp_Url = $vnp_Url . "?" . $query;
+if (isset($vnp_HashSecret)) {
+    $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret);//  
+    $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
+}
+$returnData = array('code' => '00'
+    , 'message' => 'success'
+    , 'data' => $vnp_Url);
+    if (isset($_POST['vnpay'])) {
+        header('Location: ' . $vnp_Url);
+        die();
+    } else {
+        echo json_encode($returnData);
+    }
 }
 
 ?>

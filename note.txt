@@ -25,6 +25,7 @@
 + Ngày phát hành: 07/15
 + Mật khẩu OTP: 123456
 (Cần check lại thì vào url này: https://sandbox.vnpayment.vn/apis/vnpay-demo/)
+- Nếu có vấn đề thì vào đăng ký lại môi trường test https://sandbox.vnpayment.vn/devreg/ 
 - Đã chỉnh sửa giao diện bên người dùng thêm phiếu giảm giá, sửa lại bên lịch sử đơn hàng, có thể xem chi tiết, có thể hủy đơn với tình trạng chưa duyệt và đã duyệt
 2. Giao diện quản trị
 * Lỗi: 

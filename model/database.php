@@ -131,6 +131,7 @@ function product_detail_color($id){
 function product_detail_size($id){
   global $conn;
   $sql="SELECT  DISTINCT MaSize FROM `chitietsanpham` WHERE  `MaSP` = $id";
+  // return $sql;
   $resulf=mysqli_query($conn,$sql);
   $count=mysqli_num_rows($resulf);    
   if($count==0){
@@ -280,24 +281,28 @@ if (isset($_POST['page'])==true) {
   $row_count = $_POST['rowCount'];
   $sql="SELECT * FROM `sanpham`  limit 12,".$page;
   $res=selectdata($sql); ?>
-  <div class="row pad-dt"><?php  while( $row=mysqli_fetch_array($res)){ ?>
+<div class="row pad-dt"><?php  while( $row=mysqli_fetch_array($res)){ ?>
     <div class="col-3 col-dt">
-      <a href="?view=product-detail&id=<?php echo $row['MaSP'] ?>">
-        <div class="item">
-          <div class="product-lable">
-            <?php $price_sale=price_sale($row['MaSP'],$row['DonGia']); if($price_sale < $row['DonGia']) { 
+        <a href="?view=product-detail&id=<?php echo $row['MaSP'] ?>">
+            <div class="item">
+                <div class="product-lable">
+                    <?php $price_sale=price_sale($row['MaSP'],$row['DonGia']); if($price_sale < $row['DonGia']) { 
               echo '<span>Giảm '.number_format( $row['DonGia'] - $price_sale).'đ </span>';}?>
-          </div>
-          <div><img src="webroot/image/sanpham/<?php echo $row['AnhNen']; ?>" class="img-fluid image-product"></div>
-          <div class="item-name"><p> <?php echo $row['TenSP']; ?> </p></div>
-          <div class="item-price">
-            <p> <?php echo number_format($price_sale,0).'đ'; ?> </p>
-            <h6> <?php if(number_format($row['DonGia']) !== number_format($price_sale)) {echo number_format($row['DonGia']).'đ';} ;  ?> </h6> 
-          </div>
-        </div>
-      </a>
-      </div><?php }  ?>
-  </div>
+                </div>
+                <div><img src="webroot/image/sanpham/<?php echo $row['AnhNen']; ?>" class="img-fluid image-product">
+                </div>
+                <div class="item-name">
+                    <p> <?php echo $row['TenSP']; ?> </p>
+                </div>
+                <div class="item-price">
+                    <p> <?php echo number_format($price_sale,0).'đ'; ?> </p>
+                    <h6> <?php if(number_format($row['DonGia']) !== number_format($price_sale)) {echo number_format($row['DonGia']).'đ';} ;  ?>
+                    </h6>
+                </div>
+            </div>
+        </a>
+    </div><?php }  ?>
+</div>
 <?php
 };
 
@@ -653,6 +658,3 @@ function convert_vn2latin($str)
     return $str;
 }
 ?>
-
-
-

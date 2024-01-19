@@ -1,60 +1,60 @@
 <aside id="colorlib-hero">
     <div class="flexslider">
         <ul class="slides">
-        <li style="background-image: url('webroot/image/slider/img.jpg');">
-            <div class="overlay"></div>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-6 offset-sm-3 text-center slider-text">
-                        <div class="slider-text-inner">
-                            <div class="desc">
-                                <h1 class="head-1">Men's</h1>
-                                <h2 class="head-2">Shoes</h2>
-                                <h2 class="head-3">Collection</h2>
-                                <p class="category"><span>New trending shoes</span></p>
-                                <p><a href="#" class="btn btn-primary">Bộ sưu tập</a></p>
+            <li style="background-image: url('webroot/image/slider/img.jpg');">
+                <div class="overlay"></div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6 offset-sm-3 text-center slider-text">
+                            <div class="slider-text-inner">
+                                <div class="desc">
+                                    <h1 class="head-1">Men's</h1>
+                                    <h2 class="head-2">Shoes</h2>
+                                    <h2 class="head-3">Collection</h2>
+                                    <p class="category"><span>New trending shoes</span></p>
+                                    <p><a href="#" class="btn btn-primary">Bộ sưu tập</a></p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </li>
-        <li style="background-image: url(webroot/image/slider/cover-img-1.jpg);">
-            <div class="overlay"></div>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-6 offset-sm-3 text-center slider-text">
-                        <div class="slider-text-inner">
-                            <div class="desc">
-                                <h1 class="head-1">Huge</h1>
-                                <h2 class="head-2">Sale</h2>
-                                <h2 class="head-3"><strong class="font-weight-bold">50%</strong> Off</h2>
-                                <p class="category"><span>Big sale sandals</span></p>
-                                <p><a href="#" class="btn btn-primary">Shop Collection</a></p>
+            </li>
+            <li style="background-image: url(webroot/image/slider/cover-img-1.jpg);">
+                <div class="overlay"></div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6 offset-sm-3 text-center slider-text">
+                            <div class="slider-text-inner">
+                                <div class="desc">
+                                    <h1 class="head-1">Huge</h1>
+                                    <h2 class="head-2">Sale</h2>
+                                    <h2 class="head-3"><strong class="font-weight-bold">50%</strong> Off</h2>
+                                    <p class="category"><span>Big sale sandals</span></p>
+                                    <p><a href="#" class="btn btn-primary">Shop Collection</a></p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </li>
-        <li style="background-image: url(webroot/image/slider/img-2.jpg);">
-            <div class="overlay"></div>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-6 offset-sm-3 text-center slider-text">
-                        <div class="slider-text-inner">
-                            <div class="desc">
-                                <h1 class="head-1">New</h1>
-                                <h2 class="head-2">Arrival</h2>
-                                <h2 class="head-3">up to <strong class="font-weight-bold">30%</strong> off</h2>
-                                <p class="category"><span>New stylish shoes for men</span></p>
-                                <p><a href="#" class="btn btn-primary">Shop Collection</a></p>
+            </li>
+            <li style="background-image: url(webroot/image/slider/img-2.jpg);">
+                <div class="overlay"></div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6 offset-sm-3 text-center slider-text">
+                            <div class="slider-text-inner">
+                                <div class="desc">
+                                    <h1 class="head-1">New</h1>
+                                    <h2 class="head-2">Arrival</h2>
+                                    <h2 class="head-3">up to <strong class="font-weight-bold">30%</strong> off</h2>
+                                    <p class="category"><span>New stylish shoes for men</span></p>
+                                    <p><a href="#" class="btn btn-primary">Shop Collection</a></p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </li>
+            </li>
         </ul>
     </div>
 </aside>
@@ -62,7 +62,8 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 text-center">
-                <h2 class="intro">Bắt đầu với một ý tưởng đơn giản: Tạo ra những sản phẩm chất lượng, thiết kế tốt mà bản thân muốn...</h2>
+                <h2 class="intro">Bắt đầu với một ý tưởng đơn giản: Tạo ra những sản phẩm chất lượng, thiết kế tốt mà
+                    bản thân muốn...</h2>
             </div>
         </div>
     </div>
@@ -74,24 +75,30 @@
                 <h2>Sản phẩm bán chạy</h2>
             </div>
         </div>
-        <div class="row row-pb-md"> 
-        <?php
+        <div class="row row-pb-md">
+            <?php
             $prodcts=productAll();
             while ($row=(mysqli_fetch_array($prodcts))) { $price_sale=price_sale($row['MaSP'],$row['DonGia']);?>
             <div class="col-lg-3 mb-4 ">
-                <div class="product-entry border" style="height: 350px;">
+                <div class="product-entry border" style="height: 390px;">
+                    <div class="product-lable mb-3">
+                        <?php $price_sale=price_sale($row['MaSP'],$row['DonGia']); if($price_sale < $row['DonGia']) { 
+                        echo '<span>Giảm '.number_format( $row['DonGia'] - $price_sale).'đ </span>';}?>
+                    </div>
                     <a href="?view=product-detail&id=<?php echo $row['MaSP'] ?>" class="prod-img">
-                        <img src="webroot/image/sanpham/<?php echo $row['AnhNen']; ?>" class="img-fluid image-product" alt="Free html5 bootstrap 4 template">
+                        <img src="webroot/image/sanpham/<?php echo $row['AnhNen']; ?>" class="img-fluid image-product"
+                            alt="Free html5 bootstrap 4 template">
                     </a>
                     <div class="desc">
-                        <h2><a href="#"><?php echo $row['TenSP']; ?></a></h2> 
+                        <h2><a href="#"><?php echo $row['TenSP']; ?></a></h2>
                         <span class="price"><?php echo number_format($price_sale,0).'₫'; ?></span>
                         <?php if(number_format($row['DonGia']) !== number_format($price_sale)){ ?>
-                        <span class="price-old"><?php echo  number_format($row['DonGia'], 0 ).' '.' ₫' ; ?></span> <?php } ?>
+                        <span class="price-old"><?php echo  number_format($row['DonGia'], 0 ).' '.' ₫' ; ?></span>
+                        <?php } ?>
                     </div>
                 </div>
-            </div> 
-            <?php }?>      
+            </div>
+            <?php }?>
         </div>
         <div class="row">
             <div class="col-md-12 text-center">
