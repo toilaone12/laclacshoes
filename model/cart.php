@@ -260,6 +260,7 @@ if (isset($_POST['cod'])) {
 
     header('Location: ' . $jsonResult['payUrl']);
 } elseif (isset($_POST['vnpay'])) {
+    // var_dump($_POST['tongtien']); die;
     $kh = $_SESSION['laclac_khachang'];
     $_SESSION['nguoi_nhan'] = [
         'email' => $_POST['email'],
@@ -277,7 +278,7 @@ if (isset($_POST['cod'])) {
     $vnp_TxnRef = rand(0000,9999); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
     $vnp_OrderInfo = 'Thanh toán bằng VNPAY';
     $vnp_OrderType = 'billpayment';
-    $vnp_Amount = $_POST['tongtien'] * 100;
+    $vnp_Amount = 1000 * 100;
     $vnp_Locale = 'vn';
     $vnp_BankCode = 'NCB';
     $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
@@ -327,12 +328,13 @@ if (isset($_POST['cod'])) {
     $returnData = array(
         'code' => '00', 'message' => 'success', 'data' => $vnp_Url
     );
-    if (isset($_POST['vnpay'])) {
-        header('Location: ' . $vnp_Url);
-        die();
-    } else {
-        echo json_encode($returnData);
-    }
+    // var_dump($vnp_Url); die;
+    header('Location: ' . $vnp_Url);
+    die();
+    // if (isset($_POST['vnpay'])) {
+    // } else {
+    //     echo json_encode($returnData);
+    // }
 }
 
 ?>

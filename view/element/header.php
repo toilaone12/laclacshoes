@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <link rel="icon" src="webroot/image/logo/LAC LAC shoes store2.png" />
     <title>Lạc Lạc Shop</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
